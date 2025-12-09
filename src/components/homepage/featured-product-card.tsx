@@ -5,12 +5,29 @@ import { ProductEditProps } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { addToCart } from "@/features/carts/actions/action";
+import { toast } from "sonner";
+import { useTransition } from "react";
 
 interface FeaturedProductCardProps {
   product: ProductEditProps["product"];
 }
 
 export function FeaturedProductCard({ product }: FeaturedProductCardProps) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleAddToCart = async () => {
+    startTransition(async () => {
+      const { message, success } = await addToCart(product.id, 1);
+
+      if (success) {
+        toast.success(message);
+      } else {
+        toast.error(message);
+      }
+    });
+  };
+
   return (
     <div className="group flex flex-col h-full border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
       {/* Image Container */}
@@ -66,8 +83,12 @@ export function FeaturedProductCard({ product }: FeaturedProductCardProps) {
           </Button>
         </div>
 
-        <Button className="w-full bg-white text-black border-2 border-black font-bold uppercase tracking-wide h-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-gray-50 transition-all flex items-center justify-center gap-2 group/btn">
-          Add to Cart
+        <Button
+          className="w-full bg-white text-black border-2 border-black font-bold uppercase tracking-wide h-12 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-gray-50 transition-all flex items-center justify-center gap-2 group/btn"
+          onClick={handleAddToCart}
+          disabled={isPending}
+        >
+          {isPending ? "Adding to cart..." : "Add to Cart"}
         </Button>
       </div>
     </div>
