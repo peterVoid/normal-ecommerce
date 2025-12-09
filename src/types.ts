@@ -11,7 +11,19 @@ export type PageProps = {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-// Serialized product type for Client Components (Decimal -> string, Date -> string)
+export type ProductDecimalType = {
+  price: string;
+  weight: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ProductDecimalColumn =
+  | "price"
+  | "weight"
+  | "createdAt"
+  | "updatedAt";
+
 export type SerializedProduct = Omit<
   Prisma.ProductGetPayload<{
     include: {
@@ -29,13 +41,9 @@ export type SerializedProduct = Omit<
       };
     };
   }>,
-  "price" | "weight" | "createdAt" | "updatedAt"
-> & {
-  price: string;
-  weight: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
+  ProductDecimalColumn
+> &
+  ProductDecimalType;
 
 export interface ProductTableProps {
   products: SerializedProduct[];
@@ -48,3 +56,17 @@ export interface ProductEditProps {
     category: Category;
   };
 }
+
+export type CartItemType = {
+  product: Omit<
+    Prisma.ProductGetPayload<{ include: { images: true } }>,
+    ProductDecimalColumn
+  > &
+    ProductDecimalType;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  productId: string;
+  quantity: number;
+  cartId: string;
+};

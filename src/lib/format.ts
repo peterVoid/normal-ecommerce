@@ -20,6 +20,22 @@ export function parseRupiah(value: string) {
   return Number(raw || 0);
 }
 
+export function parseDecimalPrice(
+  value: string | number | null | undefined
+): number {
+  if (value === null || value === undefined || value === "") return 0;
+
+  if (typeof value === "number") {
+    return Math.round(value);
+  }
+
+  const parsed = parseFloat(value);
+
+  if (isNaN(parsed)) return 0;
+
+  return Math.round(parsed);
+}
+
 export function formatDateString(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
