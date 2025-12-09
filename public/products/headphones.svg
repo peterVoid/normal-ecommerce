@@ -1,0 +1,6 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#f3f4f6"/>
+  <path d="M100 200v100a20 20 0 0020 20h40a20 20 0 0020-20V200a20 20 0 00-20-20h-40a20 20 0 00-20 20zM220 200v100a20 20 0 0020 20h40a20 20 0 0020-20V200a20 20 0 00-20-20h-40a20 20 0 00-20 20z" fill="#1f2937"/>
+  <path d="M120 180V150a80 80 0 01160 0v30" stroke="#1f2937" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#9ca3af">Headphones</text>
+</svg>
