@@ -7,7 +7,7 @@ export default async function CartPage() {
   const { items: initialItems, nextCursor, hasMore } = await fetchCartItems();
 
   return (
-    <div className="min-h-screen bg-background p-6 md:p-12 font-base">
+    <div className="min-h-screen bg-background p-6 md:p-12 font-base mt-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-8">
           <div className="inline-block bg-chart-5 px-3 py-0.5 text-[10px] font-bold uppercase text-white border-2 border-border shadow-shadow -rotate-2 mb-2">

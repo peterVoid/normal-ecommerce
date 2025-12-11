@@ -70,3 +70,16 @@ export type CartItemType = {
   quantity: number;
   cartId: string;
 };
+
+// Base properties shared by both upload file types
+export type BaseUploadFile = {
+  id: string;
+  imageId?: string;
+  key?: string;
+  publicImageURL?: string;
+  objectUrl?: string;
+  isDeleting?: boolean;
+  error?: boolean;
+  progress?: number;
+  isUploading?: boolean;
+};

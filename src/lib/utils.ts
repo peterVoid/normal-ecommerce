@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 export function cleanSlug(slug: string) {
   return slugify(slug, {
     lower: true,
-    strict: true, // remove symbols automatically
+    strict: true,
     trim: true,
   });
 }
@@ -34,4 +34,31 @@ export function serializeProduct(product: any) {
     createdAt: product.createdAt.toISOString(),
     updatedAt: product.updatedAt.toISOString(),
   };
+}
+
+export function generateDate() {
+  const date = [];
+
+  for (let i = 1; i <= 31; i++) {
+    date.push(i.toString());
+  }
+
+  return date;
+}
+
+export function generateYear() {
+  const minYear = 1945;
+  const maxYear = 2011;
+
+  const years = [];
+
+  for (let i = minYear; i <= maxYear; i++) {
+    years.push(i.toString());
+  }
+
+  return years;
+}
+
+export function generatePublicImageURL(key: string) {
+  return `https://uploader.t3.storage.dev/${key}`;
 }

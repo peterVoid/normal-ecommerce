@@ -1,3 +1,5 @@
+import { MonthOfBirth } from "@/constants";
+
 export function formatRupiah(value?: number | string | null) {
   if (value === null || value === undefined || value === "") return "";
 
@@ -42,4 +44,35 @@ export function formatDateString(date: string) {
     month: "short",
     year: "numeric",
   });
+}
+
+export function formatMonthOfBirth(month: MonthOfBirth) {
+  switch (month) {
+    case MonthOfBirth.JAN:
+      return "January";
+    case MonthOfBirth.FEB:
+      return "February";
+    case MonthOfBirth.MAR:
+      return "March";
+    case MonthOfBirth.APR:
+      return "April";
+    case MonthOfBirth.MAY:
+      return "May";
+    case MonthOfBirth.JUN:
+      return "June";
+    case MonthOfBirth.JUL:
+      return "July";
+    case MonthOfBirth.AUG:
+      return "August";
+    case MonthOfBirth.SEP:
+      return "September";
+    case MonthOfBirth.OCT:
+      return "October";
+    case MonthOfBirth.NOV:
+      return "November";
+    case MonthOfBirth.DEC:
+      return "December";
+    default:
+      return "";
+  }
 }

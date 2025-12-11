@@ -35,8 +35,8 @@ export async function fetchCartItems(cursor?: string) {
       orderBy: { createdAt: "desc" },
       take: ITEMS_PER_PAGE + 1,
       ...(cursor && {
-        skip: 1,
         cursor: { id: cursor },
+        skip: 1,
       }),
     });
 

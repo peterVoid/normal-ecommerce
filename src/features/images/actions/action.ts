@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { generatePublicImageURL } from "@/lib/utils";
 import { ActionResponse } from "@/types";
 import z from "zod";
 
@@ -56,7 +57,7 @@ export async function uploadImage(key: string): Promise<ActionResponse> {
 
     const { imageKey } = validatedData.data;
 
-    const publicImageURL = `https://uploader.t3.storage.dev/${imageKey}`;
+    const publicImageURL = generatePublicImageURL(imageKey);
 
     const image = await prisma.image.create({
       data: {

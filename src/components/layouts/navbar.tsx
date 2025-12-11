@@ -26,7 +26,7 @@ export function Navbar() {
   const isHomePage = pathname.startsWith("/") && pathname.endsWith("/");
 
   return (
-    <header className="h-14 border-b-4 border-border bg-white flex items-center">
+    <header className="h-14 border-b-4 border-border bg-white flex items-center fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center justify-between container mx-auto px-7">
         <div className="flex items-center">
           <Button className="border-2 border-black bg-main" size="sm" asChild>

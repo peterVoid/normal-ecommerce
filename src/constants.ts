@@ -41,3 +41,33 @@ export const DEFAULT_MAX_FILES = 3;
 export const DEFAULT_MAX_SIZE = 1024 * 1024 * 5;
 
 export const ITEMS_PER_PAGE = 5;
+
+export enum MonthOfBirth {
+  JAN = "JAN",
+  FEB = "FEB",
+  MAR = "MAR",
+  APR = "APR",
+  MAY = "MAY",
+  JUN = "JUN",
+  JUL = "JUL",
+  AUG = "AUG",
+  SEP = "SEP",
+  OCT = "OCT",
+  NOV = "NOV",
+  DEC = "DEC",
+}
+
+export const MONTH = [
+  MonthOfBirth.JAN,
+  MonthOfBirth.FEB,
+  MonthOfBirth.MAR,
+  MonthOfBirth.APR,
+  MonthOfBirth.MAY,
+  MonthOfBirth.JUN,
+  MonthOfBirth.JUL,
+  MonthOfBirth.AUG,
+  MonthOfBirth.SEP,
+  MonthOfBirth.OCT,
+  MonthOfBirth.NOV,
+  MonthOfBirth.DEC,
+];

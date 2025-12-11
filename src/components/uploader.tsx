@@ -4,7 +4,8 @@ import { DEFAULT_MAX_FILES, DEFAULT_MAX_SIZE } from "@/constants";
 import { ProductUploaderCard } from "@/features/admin/products/components/product-uploader-card";
 import { deleteImage, uploadImage } from "@/features/images/actions/action";
 import { Image } from "@/generated/prisma/client";
-import { cn } from "@/lib/utils";
+import { cn, generatePublicImageURL } from "@/lib/utils";
+import { BaseUploadFile } from "@/types";
 import { AnimatePresence } from "framer-motion";
 import { CloudUpload } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -28,19 +29,6 @@ type UploaderProps =
       maxSize?: number;
       disabled?: boolean;
     };
-
-// Base properties shared by both upload file types
-type BaseUploadFile = {
-  id: string;
-  imageId?: string;
-  key?: string;
-  publicImageURL?: string;
-  objectUrl?: string;
-  isDeleting?: boolean;
-  error?: boolean;
-  progress?: number;
-  isUploading?: boolean;
-};
 
 type EditModeUploadFile = BaseUploadFile & {
   isEditItem: true;
@@ -138,7 +126,7 @@ export function Uploader({
 
           xhr.onload = async () => {
             if (xhr.status === 200 || xhr.status === 204) {
-              const publicImageURL = `https://uploader.t3.storage.dev/${key}`;
+              const publicImageURL = generatePublicImageURL(key);
 
               setFiles((prevFiles) => [
                 ...prevFiles.map((item) =>

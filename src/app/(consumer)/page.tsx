@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/homepage/hero-section";
 
 export default function Home() {
   return (
-    <div>
+    <div className="mt-2">
       <HeroSection />
       <FeatureHighlightSection />
       <FeaturedProductsSection />
