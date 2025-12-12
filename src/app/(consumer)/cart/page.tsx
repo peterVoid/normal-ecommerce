@@ -1,7 +1,7 @@
+import { fetchCartItems } from "@/features/carts/actions/action";
 import { CartList } from "@/features/carts/components/cart-list";
 import { EmptyCart } from "@/features/carts/components/empty-cart";
 import { OrderSummary } from "@/features/carts/components/order-summary";
-import { fetchCartItems } from "@/features/carts/actions/action";
 
 export default async function CartPage() {
   const { items: initialItems, nextCursor, hasMore } = await fetchCartItems();

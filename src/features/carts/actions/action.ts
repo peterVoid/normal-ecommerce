@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { serializeProduct } from "@/lib/utils";
 import { ActionResponse, CartItemType } from "@/types";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 export async function fetchCartItems(cursor?: string) {
@@ -85,6 +86,8 @@ export async function removeItem(cartItemId: string) {
         cartId: existingCart.id,
       },
     });
+
+    revalidatePath("/cart");
   } catch (error) {
     console.error(error);
     throw error;
@@ -107,6 +110,8 @@ export async function updateCartItemQuantity(
         userId: session.user.id,
       },
     });
+
+    console.log(existingCart);
 
     if (!existingCart) throw new Error("Cart not found");
 

@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { createProduct, updateProduct } from "../actions/action";
 import { CreateProductSchema, createProductSchema } from "../schemas/schema";
 import { useRouter } from "next/navigation";
+import { DEFAULT_MAX_FILES } from "@/constants";
 
 interface AddNewProductFormProps {
   categories: Category[];
@@ -207,11 +208,11 @@ export function AddNewProductForm({
                     render={({ field: { value, onChange }, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
                         <Uploader
-                          maxFiles={3}
+                          maxFiles={DEFAULT_MAX_FILES}
                           onChange={onChange}
                           disabled={
                             value
-                              ? value.length >= 3
+                              ? value.length >= DEFAULT_MAX_FILES
                               : form.formState.isSubmitting
                           }
                           isEditMode={isEditMode}

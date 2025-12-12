@@ -5,12 +5,12 @@ import { useCartItem } from "@/hooks/use-cart-item";
 import { formatRupiah } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { CartItemType } from "@/types";
-import { Minus, Plus, Trash2, Check } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { removeItem, updateCartItemQuantity } from "../actions/action";
+import { Check, Minus, Plus, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { removeItem, updateCartItemQuantity } from "../actions/action";
 
 interface CartItemProps {
   item: CartItemType;
@@ -74,7 +74,6 @@ export function CartItem({ item }: CartItemProps) {
     e.stopPropagation();
     removeCartItem(currentItem.id);
     removeItem(currentItem.id);
-    router.refresh();
   };
 
   useEffect(() => {
@@ -98,6 +97,13 @@ export function CartItem({ item }: CartItemProps) {
         backgroundColor: "#ffffff",
         scale: isSelected ? 1.02 : 1,
         boxShadow: isSelected ? "6px 6px 0px 0px var(--border)" : "normal",
+      }}
+      exit={{
+        opacity: 0,
+        scale: 0.9,
+        height: 0,
+        marginBottom: 0,
+        overflow: "hidden",
       }}
       whileHover={{
         scale: isSelected ? 1.02 : 1.01,
@@ -192,7 +198,7 @@ export function CartItem({ item }: CartItemProps) {
           <button
             type="button"
             onClick={handleDelete}
-            className="hidden sm:block p-2 hover:bg-red-100 text-muted-foreground hover:text-red-500 border-2 border-transparent hover:border-border transition-all"
+            className="hidden sm:block p-2 hover:bg-red-100 text-muted-foreground hover:text-red-500 border-2 border-transparent hover:border-border transition-all cursor-pointer"
             title="Remove item"
           >
             <Trash2 className="w-5 h-5" />

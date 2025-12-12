@@ -1,10 +1,12 @@
 "use client";
 
 import { CartItem } from "./cart-item";
-import { fetchCartItems } from "../actions/action";
+import { AnimatePresence } from "framer-motion";
 import { CartItemType } from "@/types";
 import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
+import { fetchCartItems } from "../actions/action";
+import { useCartItem } from "@/hooks/use-cart-item";
 
 interface CartListProps {
   initialItems: CartItemType[];
@@ -17,7 +19,8 @@ export function CartList({
   initialCursor,
   initialHasMore,
 }: CartListProps) {
-  const [items, setItems] = useState<CartItemType[]>(initialItems);
+  const { setCartItems, cartItems } = useCartItem();
+
   const [cursor, setCursor] = useState<string | undefined>(initialCursor);
   const [hasMore, setHasMore] = useState(initialHasMore);
   const [loading, setLoading] = useState(false);
@@ -53,7 +56,7 @@ export function CartList({
     try {
       const result = await fetchCartItems(cursor);
 
-      setItems((prev) => [...prev, ...result.items]);
+      setCartItems((prev) => [...prev, ...result.items]);
 
       setCursor(result.nextCursor);
 
@@ -65,11 +68,17 @@ export function CartList({
     }
   };
 
+  useEffect(() => {
+    setCartItems(initialItems);
+  }, []);
+
   return (
     <div className="space-y-4">
-      {items.map((item) => (
-        <CartItem key={item.id} item={item} />
-      ))}
+      <AnimatePresence mode="popLayout">
+        {cartItems.map((item) => (
+          <CartItem key={item.id} item={item} />
+        ))}
+      </AnimatePresence>
       {loading && (
         <div className="flex items-center justify-center py-4 gap-2 text-muted-foreground">
           <Loader2 className="w-5 h-5 animate-spin" />
@@ -79,7 +88,7 @@ export function CartList({
 
       {hasMore && <div ref={sentinelRef} className="h-4" />}
 
-      {!hasMore && items.length > 0 && (
+      {!hasMore && cartItems.length > 0 && (
         <p className="text-center text-muted-foreground py-4 text-sm">
           You've reached the end of your cart
         </p>

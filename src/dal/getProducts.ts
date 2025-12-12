@@ -4,7 +4,7 @@ import { serializeProduct } from "@/lib/utils";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function getProductById(id: string) {
+export async function getProductByKey(key: string) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -13,9 +13,16 @@ export async function getProductById(id: string) {
     return redirect("/signin");
   }
 
-  const products = await prisma.product.findUnique({
+  const products = await prisma.product.findFirst({
     where: {
-      id,
+      OR: [
+        {
+          id: key,
+        },
+        {
+          slug: key,
+        },
+      ],
     },
     include: {
       category: true,

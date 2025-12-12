@@ -37,7 +37,7 @@ export const NAVBAR_LINKS = [
 
 export const PAGE_SIZE = 5;
 
-export const DEFAULT_MAX_FILES = 3;
+export const DEFAULT_MAX_FILES = 5;
 export const DEFAULT_MAX_SIZE = 1024 * 1024 * 5;
 
 export const ITEMS_PER_PAGE = 5;
