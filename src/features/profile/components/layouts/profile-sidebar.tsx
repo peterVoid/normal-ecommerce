@@ -1,11 +1,10 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
+import { Heart, LogOut, MapPin, Shield, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LogOut, MapPin, Shield, User, Heart } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
 
 const sidebarItems = [
   {

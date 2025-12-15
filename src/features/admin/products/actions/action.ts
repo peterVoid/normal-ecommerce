@@ -146,7 +146,11 @@ export async function createProduct(
         description,
         categoryId,
         images: {
-          connect: image.map((url) => ({ id: url.id, key: url.key })),
+          connect: image.map((url, index) => ({
+            id: url.id,
+            key: url.key,
+            isMain: index === 0,
+          })),
         },
       },
     });

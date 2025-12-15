@@ -1,4 +1,4 @@
-import { ProfileSidebar } from "./_components/profile-sidebar";
+import { ProfileSidebar } from "@/features/profile/components/layouts/profile-sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

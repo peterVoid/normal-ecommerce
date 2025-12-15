@@ -25,6 +25,7 @@ model User {
   isAdmin   Boolean?   @default(false)
   carts     Cart[]
   wishlists Wishlist[]
+  addresses Address[]
 
   @@unique([email])
   @@map("user")
@@ -179,4 +180,27 @@ model Wishlist {
 
   @@unique([productId, userId], name: "wishlist_unique")
   @@map("wishlists")
+}
+
+model Address {
+  id              String  @id @default(cuid())
+  receiverName    String
+  phoneNumber     String  @map("phone_number")
+  label           String
+  province        String
+  provinceId      String
+  city            String
+  cityId          String  @map("city_id")
+  subdistrict     String  @map("subdistrict")
+  postalCode      String  @map("postal_code")
+  completeAddress String  @map("complete_address")
+  mainAddress     Boolean @default(false) @map("main_address")
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("addresses")
 }
