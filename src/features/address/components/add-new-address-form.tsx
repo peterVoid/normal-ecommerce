@@ -27,6 +27,7 @@ import {
   FlagIcon,
   Hash,
   HomeIcon,
+  Loader2,
   Map,
   Navigation,
   Phone,
@@ -37,8 +38,9 @@ import {
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AddressSchema, AddressSchemaType } from "../schemas/schema";
-import { addNewAddress } from "../actions/action";
+import { addNewAddress, updateAddress } from "../actions/action";
 import { toast } from "sonner";
+import { Address } from "@/generated/prisma/client";
 
 const PlaceLabel = [
   {
@@ -72,7 +74,11 @@ type Location = {
   name: string;
 };
 
-export function AddNewAddressForm() {
+interface AddNewAddressFormProps {
+  address?: Address;
+}
+
+export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
   const [provinces, setProvinces] = useState<Location[]>([]);
   const [cities, setCities] = useState<Location[]>([]);
   const [subdistricts, setSubdistricts] = useState<Location[]>([]);
@@ -80,17 +86,18 @@ export function AddNewAddressForm() {
   const form = useForm<AddressSchemaType>({
     resolver: zodResolver(AddressSchema),
     defaultValues: {
-      receiver_name: "",
-      phone_number: "",
-      province: "",
-      province_id: "",
-      city: "",
-      city_id: "",
-      subdistrict: "",
-      subdistrict_id: "",
-      complete_address: "",
-      postal_code: "",
-      main_address: false,
+      receiver_name: address?.receiverName || "",
+      phone_number: address?.phoneNumber || "",
+      province: address?.province || "",
+      province_id: address?.provinceId || "",
+      city: address?.city || "",
+      city_id: address?.cityId || "",
+      subdistrict: address?.subdistrict || "",
+      subdistrict_id: address?.subdistrictId || "",
+      complete_address: address?.completeAddress || "",
+      postal_code: address?.postalCode || "",
+      main_address: address?.mainAddress || false,
+      label: address?.label || "",
     },
   });
 
@@ -100,11 +107,12 @@ export function AddNewAddressForm() {
 
   const onSubmit = async (data: AddressSchemaType) => {
     try {
-      const { success, message } = await addNewAddress(data);
+      const { success, message } = address
+        ? await updateAddress(data, address.id)
+        : await addNewAddress(data);
 
       if (success) {
         toast.success(message);
-        form.reset();
       } else {
         toast.error(message);
       }
@@ -475,6 +483,7 @@ export function AddNewAddressForm() {
                     onCheckedChange={(e) =>
                       form.setValue("main_address", e as boolean)
                     }
+                    disabled={address?.mainAddress}
                   />
                   <label
                     htmlFor="main_address"
@@ -492,7 +501,14 @@ export function AddNewAddressForm() {
                   }
                 >
                   {form.formState.isSubmitting ? (
-                    "Saving..."
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />{" "}
+                      Saving...
+                    </>
+                  ) : address ? (
+                    <>
+                      <Save className="w-4 h-4 mr-2" /> Update Address
+                    </>
                   ) : (
                     <>
                       <Save className="w-4 h-4 mr-2" /> Save Address

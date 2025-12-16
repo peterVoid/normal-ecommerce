@@ -71,3 +71,5 @@ export const MONTH = [
   MonthOfBirth.NOV,
   MonthOfBirth.DEC,
 ];
+
+export const MAX_ADDRESS = 2;
