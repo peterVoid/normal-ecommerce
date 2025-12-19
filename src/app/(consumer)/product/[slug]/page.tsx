@@ -29,23 +29,17 @@ export default async function Page({ params }: PageProps) {
   const isWishlist = await checkWishlist(product.id);
 
   return (
-    <div className="min-h-screen bg-[#FFF0F5] relative overflow-x-hidden font-sans">
-      {/* Background Pattern */}
+    <div className="min-h-screen bg-[#FFF0F5] relative overflow-x-hidden font-sans mt-12">
       <div className="absolute inset-0 bg-[radial-gradient(#000_1px,transparent_1px)] bg-size-[20px_20px] opacity-10 pointer-events-none" />
 
       <div className="container mx-auto px-4 py-12 md:py-20 relative z-10">
-        {/* Breadcrumb / Back Navigation can go here */}
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Gallery Section */}
           <div className="lg:col-span-7">
             <ProductGallery images={productImages} />
           </div>
 
-          {/* Info Section - Sticky */}
           <div className="lg:col-span-5 lg:sticky lg:top-24">
             <div className="bg-white border-4 border-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative">
-              {/* Decorative Tape */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-neutral-200/80 rotate-1 transform border-l-2 border-r-2 border-neutral-300"></div>
 
               <ProductInfo
@@ -66,7 +60,6 @@ export default async function Page({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Related Products Mockup */}
         <div className="mt-32 border-t-4 border-black pt-16">
           <div className="flex items-center gap-4 mb-12">
             <div className="bg-yellow-400 border-4 border-black px-4 py-1 font-black uppercase text-sm -rotate-2">

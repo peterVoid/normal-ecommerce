@@ -75,3 +75,9 @@ export const MONTH = [
 export const MAX_ADDRESS = 2;
 
 export type Courier = "jne" | "sicepat" | "jnt" | "tiki";
+
+export enum SortOption {
+  NEWEST = "newest",
+  PRICE_ASC = "price-asc",
+  PRICE_DESC = "price-desc",
+}

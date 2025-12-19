@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
 interface PaginationProps {
@@ -15,13 +16,11 @@ function getPagesToShow(
   currentPage: number,
   maxWindow: number = 5
 ): PageItem[] {
-  // guard
   totalPages = Math.max(1, Math.floor(totalPages));
   currentPage = Math.min(Math.max(Number(currentPage), 1), totalPages);
   maxWindow = Math.max(1, Math.floor(maxWindow));
 
   if (totalPages <= maxWindow) {
-    // small number of pages -> show all -> [1,2,3,4,5]
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
@@ -29,7 +28,6 @@ function getPagesToShow(
   let start = currentPage - half;
   let end = currentPage + half;
 
-  // adjust when out of bounds
   if (start < 1) {
     start = 1;
     end = Math.min(totalPages, start + maxWindow - 1);
@@ -42,7 +40,6 @@ function getPagesToShow(
 
   const pages: PageItem[] = [];
 
-  // Always include first page (maybe)
   if (start > 1) {
     pages.push(1);
     if (start > 2) {
@@ -52,7 +49,6 @@ function getPagesToShow(
 
   for (let p = start; p <= end; p++) pages.push(p);
 
-  // Maybe ellipsis then last
   if (end < totalPages) {
     if (end < totalPages - 1) pages.push("ellipsis");
     pages.push(totalPages);
@@ -65,64 +61,72 @@ export function Pagination(props: PaginationProps) {
   const { page = "1", totalPages, hasNextPage, maxWindow = 5 } = props;
   const currentPage = Math.min(Math.max(Number(page), 1), totalPages);
 
-  //   fallback for hasNextPage if not provided
   const derivedHasNext =
     typeof hasNextPage === "boolean" ? hasNextPage : currentPage < totalPages;
 
   const pages = getPagesToShow(totalPages, currentPage, maxWindow);
+  const isFirstPage = currentPage === 1;
+  const isLastPage = !derivedHasNext;
 
   return (
-    <div className="flex items-center justify-center space-x-3">
+    <div className="flex flex-wrap items-center justify-center gap-3 py-4">
       <Link
-        href={`?page=${currentPage - 1}`}
+        href={isFirstPage ? "#" : `?page=${currentPage - 1}`}
         className={cn(
-          "rounded-md border border-gray-300 px-3 py-2 text-sm font-medium hover:bg-gray-50",
-          currentPage === 1 && "pointer-events-none opacity-50 bg-gray-100"
+          "flex items-center justify-center w-12 h-12 border-2 border-black bg-white transition-all duration-200",
+          !isFirstPage &&
+            "hover:bg-yellow-400 hover:-translate-y-1 hover:translate-x-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-0 active:translate-x-0 active:shadow-none",
+          isFirstPage &&
+            "opacity-40 cursor-not-allowed bg-neutral-100 border-neutral-300 pointer-events-none"
         )}
         aria-label="Previous page"
+        aria-disabled={isFirstPage}
+        onClick={(e) => isFirstPage && e.preventDefault()}
       >
-        Previous
+        <ChevronLeftIcon className="w-6 h-6 stroke-3" />
       </Link>
 
-      <nav
-        aria-label="Pagination"
-        className="inline-flex -space-x-px rounded-md"
-      >
+      <div className="flex items-center gap-2">
         {pages.map((p, i) =>
           p === "ellipsis" ? (
             <span
               key={`e-${i}`}
-              className="relative inline-flex items-center border border-gray-300 px-4 py-2 text-sm font-medium"
+              className="flex items-end justify-center w-8 h-12 font-black text-2xl tracking-widest pb-2 select-none"
             >
-              &hellip;
+              ...
             </span>
           ) : (
             <Link
               key={p}
               href={`?page=${p}`}
+              scroll={false}
               className={cn(
-                "relative inline-flex items-center border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50",
-                p === currentPage ? "pointer-events-none bg-gray-100" : "",
-                i === 0 ? "rounded-l-md" : "",
-                i === pages.length - 1 ? "rounded-r-md" : ""
+                "flex items-center justify-center w-12 h-12 border-2 border-black font-black text-lg transition-all duration-200",
+                p === currentPage
+                  ? "bg-black text-white -translate-y-1 translate-x-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.4)]"
+                  : "bg-white text-black hover:bg-pink-400 hover:text-white hover:-translate-y-1 hover:translate-x-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
               )}
-              aria-current={p === currentPage ? "page" : undefined}
             >
               {p}
             </Link>
           )
         )}
-      </nav>
+      </div>
 
       <Link
-        href={`?page=${currentPage + 1}`}
+        href={isLastPage ? "#" : `?page=${currentPage + 1}`}
         className={cn(
-          "rounded-md border border-gray-300 px-3 py-2 text-sm font-medium hover:bg-gray-50",
-          !derivedHasNext ? "pointer-events-none bg-gray-100" : ""
+          "flex items-center justify-center w-12 h-12 border-2 border-black bg-white transition-all duration-200",
+          !isLastPage &&
+            "hover:bg-yellow-400 hover:-translate-y-1 hover:translate-x-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-0 active:translate-x-0 active:shadow-none",
+          isLastPage &&
+            "opacity-40 cursor-not-allowed bg-neutral-100 border-neutral-300 pointer-events-none"
         )}
         aria-label="Next page"
+        aria-disabled={isLastPage}
+        onClick={(e) => isLastPage && e.preventDefault()}
       >
-        Next
+        <ChevronRightIcon className="w-6 h-6 stroke-[3]" />
       </Link>
     </div>
   );

@@ -9,9 +9,10 @@ import { addToCart } from "@/features/carts/actions/action";
 import { toast } from "sonner";
 import { useTransition } from "react";
 import Link from "next/link";
+import { GetAllProductsProps } from "@/app/(consumer)/products/page";
 
 interface FeaturedProductCardProps {
-  product: ProductEditProps["product"];
+  product: GetAllProductsProps;
 }
 
 export function FeaturedProductCard({ product }: FeaturedProductCardProps) {
@@ -76,7 +77,7 @@ export function FeaturedProductCard({ product }: FeaturedProductCardProps) {
                 Price
               </div>
               <div className="text-3xl font-black tabular-nums tracking-tighter">
-                {formatRupiah(product.price)}
+                {formatRupiah(product.price.toString())}
               </div>
             </div>
 

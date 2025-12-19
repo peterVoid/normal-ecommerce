@@ -56,3 +56,21 @@ export async function getProductCategories() {
 
   return categories;
 }
+
+export async function getPublicCategories() {
+  const categories = await prisma.category.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return categories;
+}
+
+export async function getPublicCategoryBySlug(slug: string) {
+  const category = await prisma.category.findUnique({
+    where: { slug },
+  });
+
+  return category;
+}

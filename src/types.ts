@@ -106,3 +106,12 @@ export type Level = {
   cost: number;
   etd: string;
 };
+
+export type ProductWithImages = Omit<
+  SerializedProduct,
+  "images" | "category"
+> & {
+  images: Image[];
+};
+
+export type ProductWithAvailability = "in_stock" | "out_of_stock";

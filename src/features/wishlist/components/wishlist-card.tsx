@@ -85,6 +85,7 @@ export function WishlistCard({ item, onRemove }: WishlistCardProps) {
             src={item.product.images[0].src}
             alt={item.product.name}
             fill
+            unoptimized
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (

@@ -1,0 +1,21 @@
+import { getUserOrders } from "@/dal/getOrders";
+import { OrderList } from "@/features/orders/components/order-list";
+
+export default async function OrderPage() {
+  const orders = await getUserOrders();
+
+  return (
+    <div className="space-y-8">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-4xl font-black uppercase tracking-tighter">
+          My Orders
+        </h1>
+        <p className="text-muted-foreground font-bold">
+          See your purchase history nicely here.
+        </p>
+      </div>
+
+      <OrderList orders={orders} />
+    </div>
+  );
+}

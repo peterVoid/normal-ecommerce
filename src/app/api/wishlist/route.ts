@@ -23,12 +23,7 @@ export async function GET(req: NextRequest) {
       include: {
         product: {
           include: {
-            images: {
-              where: {
-                isMain: true,
-              },
-              take: 1,
-            },
+            images: true,
             category: true,
           },
         },

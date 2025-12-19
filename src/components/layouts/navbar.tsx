@@ -1,15 +1,10 @@
 "use client";
 
-import {
-  HoverColor,
-  hoverColorMap,
-  NAVBAR_LINKS,
-  NavbarLabel,
-} from "@/constants";
+import { HoverColor, NAVBAR_LINKS, NavbarLabel } from "@/constants";
+import { Category } from "@/generated/prisma/client";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
@@ -17,105 +12,199 @@ import {
   ShoppingCartIcon,
   UserIcon,
 } from "lucide-react";
-import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
-export function Navbar() {
+interface NavbarProps {
+  categories?: Pick<Category, "id" | "name" | "slug">[];
+}
+
+export function Navbar({ categories = [] }: NavbarProps) {
   const pathname = usePathname();
   const { data: session, isPending: sessionPending } = authClient.useSession();
+  const [isCategoryHovered, setIsCategoryHovered] = useState(false);
 
-  const isHomePage = pathname.startsWith("/") && pathname.endsWith("/");
+  const displayCategories = categories.slice(0, 12);
+  const hasMoreCategories = categories.length > 12;
 
   return (
-    <header className="h-14 border-b-4 border-border bg-white flex items-center fixed top-0 left-0 right-0 z-50">
-      <div className="flex items-center justify-between container mx-auto px-7">
-        <div className="flex items-center">
-          <Button className="border-2 border-black bg-main" size="sm" asChild>
-            <Link href="/" className="font-semibold text-md uppercase">
+    <header className="h-20 border-b-4 border-black bg-white flex items-center fixed top-0 left-0 right-0 z-50 shadow-[0px_4px_0px_0px_rgba(0,0,0,0.1)]">
+      <div className="flex items-center justify-between container mx-auto px-4 md:px-7 relative">
+        {/* LOGO */}
+        <div className="flex items-center z-50">
+          <Button
+            className="border-2 border-black bg-main hover:bg-main/90 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            size="sm"
+            asChild
+          >
+            <Link
+              href="/"
+              className="font-black text-md uppercase tracking-wider"
+            >
               BRUTAL SHOP
             </Link>
           </Button>
         </div>
-        <nav className="md:flex items-center gap-x-1 hidden">
-          <Link href="/">
+
+        {/* NAVIGATION LINKS */}
+        <nav className="md:flex items-center gap-x-4 hidden h-full">
+          {/* ALL PRODUCT LINK */}
+          <Link href="/products">
             <div
-              className={`bg-white border-2 border-transparent uppercase text-xs hover:bg-yellow-400 hover:border-black hover:border-2 ${
+              className={cn(
+                "font-bold uppercase text-sm border-2 border-transparent px-4 py-1 transition-all hover:bg-yellow-400 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1",
                 pathname === "/products" &&
-                "bg-yellow-400 border-2 border-black"
-              }`}
-              style={{
-                padding: "5px 20px",
-              }}
+                  "bg-yellow-400 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-y-1"
+              )}
             >
-              All
+              All Products
             </div>
           </Link>
 
           {NAVBAR_LINKS.map((nLink) => {
-            const isActive =
-              nLink.label !== NavbarLabel.Categories && pathname === nLink.href;
+            const isCategory = nLink.label === NavbarLabel.Categories;
+            const isActive = !isCategory && pathname === nLink.href;
 
-            return (
-              <Button
-                key={nLink.label}
-                variant="noShadow"
-                className="bg-white border-none uppercase text-xs"
-                size="sm"
-              >
-                {nLink.label === NavbarLabel.Categories ? (
-                  <div className="p-1 border-2 border-transparent flex items-center gap-x-0.5 hover:bg-green-400 hover:border-black hover:border-2">
-                    {nLink.label}
-                    <ChevronDownIcon className="size-4" />
-                  </div>
-                ) : (
-                  <div
+            if (isCategory) {
+              return (
+                <div
+                  key={nLink.label}
+                  className="relative h-20 flex items-center"
+                  onMouseEnter={() => setIsCategoryHovered(true)}
+                  onMouseLeave={() => setIsCategoryHovered(false)}
+                >
+                  <button
                     className={cn(
-                      `border-2 border-transparent hover:border-2 p-1 hover:border-black ${
-                        isActive && "bg-red-900"
-                      }`,
-                      nLink.hoverColor === HoverColor.Blue &&
-                        hoverColorMap[nLink.hoverColor],
-                      nLink.hoverColor === HoverColor.Green &&
-                        hoverColorMap[nLink.hoverColor]
+                      "flex items-center gap-x-1 font-bold uppercase text-sm border-2 border-transparent px-4 py-1 transition-all",
+                      isCategoryHovered
+                        ? "bg-green-400 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-y-1"
+                        : "hover:bg-green-400 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1"
                     )}
                   >
-                    <Link href={nLink.href!}>{nLink.label}</Link>
-                  </div>
+                    {nLink.label}
+                    <ChevronDownIcon
+                      className={cn(
+                        "size-4 transition-transform duration-200",
+                        isCategoryHovered && "rotate-180"
+                      )}
+                    />
+                  </button>
+
+                  <AnimatePresence>
+                    {isCategoryHovered && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] lg:w-[800px] pt-4"
+                      >
+                        {/* Connecting Line/Triangle optional */}
+                        <div className="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative z-50">
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t-4 border-l-4 border-black rotate-45" />
+
+                          <div className="flex flex-col gap-6">
+                            <div className="flex items-center justify-between border-b-2 border-black pb-2">
+                              <h3 className="font-black text-xl italic uppercase">
+                                Browse Categories
+                              </h3>
+                              <span className="text-xs font-bold bg-black text-white px-2 py-1">
+                                {categories.length} Total
+                              </span>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-3">
+                              {displayCategories.map((cat) => (
+                                <Link
+                                  key={cat.id}
+                                  href={`/categories/${cat.slug}`}
+                                  className="group relative"
+                                >
+                                  <div className="bg-white border-2 border-black p-3 text-center transition-all group-hover:bg-pink-400 group-hover:-translate-y-1 group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                    <span className="font-bold text-sm uppercase truncate block">
+                                      {cat.name}
+                                    </span>
+                                  </div>
+                                </Link>
+                              ))}
+
+                              {/* View All Button if overflow */}
+                              {hasMoreCategories && (
+                                <Link href="/categories" className="group">
+                                  <div className="bg-black border-2 border-black p-3 text-center transition-all group-hover:bg-neutral-800 group-hover:-translate-y-1 group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">
+                                    <span className="font-bold text-sm uppercase text-white flex items-center justify-center gap-1">
+                                      View All{" "}
+                                      <ChevronRightIcon className="size-4" />
+                                    </span>
+                                  </div>
+                                </Link>
+                              )}
+                            </div>
+
+                            {categories.length === 0 && (
+                              <div className="text-center py-10 font-bold text-neutral-400">
+                                NO CATEGORIES FOUND
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+
+            return (
+              <div
+                key={nLink.label}
+                className={cn(
+                  "font-bold uppercase text-sm border-2 border-transparent px-4 py-1 transition-all",
+                  "hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1",
+                  nLink.hoverColor === HoverColor.Blue && "hover:bg-blue-400",
+                  nLink.hoverColor === HoverColor.Green && "hover:bg-green-400",
+                  isActive &&
+                    "border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-y-1 bg-white"
                 )}
-              </Button>
+              >
+                <Link href={nLink.href!}>{nLink.label}</Link>
+              </div>
             );
           })}
         </nav>
-        <div className="flex items-center gap-x-2">
-          <div className="p-1.5 border border-transparent flex items-center justify-center w-fit hover:bg-yellow-400 hover:border-black hover:border">
-            <button>
-              <SearchIcon className="size-4" />
-            </button>
-          </div>
-          <div>
-            <Link
-              href={sessionPending ? "/" : session ? "/profile" : "/signup"}
-              className="p-1.5 border border-transparent flex items-center justify-center w-fit hover:bg-blue-400 hover:border-black hover:border"
-            >
-              <UserIcon className="size-4" />
-            </Link>
-          </div>
-          <div>
-            <Link
-              href="/cart"
-              className="p-1.5 border border-transparent flex items-center justify-center w-fit hover:bg-red-400 hover:border-black hover:border"
-            >
-              <ShoppingCartIcon className="size-4" />
-            </Link>
-          </div>
+
+        {/* RIGHT SIDE ICONS */}
+        <div className="flex items-center gap-x-4">
+          <button className="p-2 border-2 border-transparent hover:border-black hover:bg-yellow-400 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <SearchIcon className="size-5" />
+          </button>
+
+          <Link
+            href={sessionPending ? "/" : session ? "/profile" : "/signup"}
+            className="p-2 border-2 border-transparent hover:border-black hover:bg-blue-400 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
+          >
+            <UserIcon className="size-5" />
+          </Link>
+
+          <Link
+            href="/cart"
+            className="p-2 border-2 border-transparent hover:border-black hover:bg-red-400 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all relative"
+          >
+            <ShoppingCartIcon className="size-5" />
+            {/* Simple badge example */}
+            {/* <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] w-4 h-4 flex items-center justify-center border border-white font-bold">3</span> */}
+          </Link>
+
           {!sessionPending && session && session.user.isAdmin && (
             <Button
               size="sm"
-              className="rotate-1 hover:rotate-0 transition-all hover:bg-red-400 duration-200"
+              className="hidden md:flex bg-black text-white border-2 border-transparent hover:bg-red-500 hover:border-black hover:text-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all uppercase font-bold"
               asChild
             >
               <Link href="/admin">
-                Go to Admin Panel
-                <ChevronRightIcon className="size-5" />
+                Admin <ChevronRightIcon className="size-4 ml-1" />
               </Link>
             </Button>
           )}

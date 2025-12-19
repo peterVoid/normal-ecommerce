@@ -2,7 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { Heart, LogOut, MapPin, Shield, User } from "lucide-react";
+import { BoxesIcon, Heart, LogOut, MapPin, Shield, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -21,6 +21,11 @@ const sidebarItems = [
     title: "ADDRESS",
     href: "/profile/address",
     icon: MapPin,
+  },
+  {
+    title: "ORDER",
+    href: "/profile/order",
+    icon: BoxesIcon,
   },
   {
     title: "SECURITY",

@@ -1,12 +1,11 @@
 "use client";
 
-import { CartItem } from "./cart-item";
-import { AnimatePresence } from "framer-motion";
-import { CartItemType } from "@/types";
-import { useEffect, useRef, useState } from "react";
-import { Loader2 } from "lucide-react";
-import { fetchCartItems } from "../actions/action";
 import { useCartItem } from "@/hooks/use-cart-item";
+import { CartItemType } from "@/types";
+import { AnimatePresence, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { fetchCartItems } from "../actions/action";
+import { CartItem } from "./cart-item";
 
 interface CartListProps {
   initialItems: CartItemType[];
@@ -26,27 +25,15 @@ export function CartList({
   const [loading, setLoading] = useState(false);
 
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sentinelRef, {
+    margin: "0px 0px 400px 0px",
+  });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const sentinel = entries[0];
-
-        if (sentinel.isIntersecting && hasMore && !loading) {
-          loadMore();
-        }
-      },
-      {
-        threshold: 1.0,
-        rootMargin: "100px",
-      }
-    );
-    if (sentinelRef.current) {
-      observer.observe(sentinelRef.current);
+    if (isInView && hasMore && !loading) {
+      loadMore();
     }
-
-    return () => observer.disconnect();
-  }, [hasMore, loading, cursor]);
+  }, [isInView, hasMore, loading]);
 
   const loadMore = async () => {
     if (loading || !hasMore) return;
