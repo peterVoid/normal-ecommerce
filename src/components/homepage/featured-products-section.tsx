@@ -1,16 +1,14 @@
-import { formatRupiah } from "@/lib/format";
 import prisma from "@/lib/prisma";
 import { serializeProduct } from "@/lib/utils";
 import { ProductEditProps } from "@/types";
-import { ShoppingCart, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { Button } from "../ui/button";
 import { FeaturedProductCard } from "./featured-product-card";
-import Image from "next/image";
 
 async function getFeaturedProducts() {
   const products = await prisma.product.findMany({
     where: {
-      isActive: true,
+      AND: [{ isActive: true }, { isFeatured: true }],
     },
     take: 6,
     orderBy: {
@@ -35,7 +33,6 @@ export async function FeaturedProductsSection() {
 
   return (
     <section className="relative py-20 px-4 md:px-7 overflow-hidden">
-      {/* Decorative Background */}
       <div className="absolute inset-0 bg-[radial-gradient(#000_2px,transparent_2px)] bg-size-[30px_30px] opacity-10 pointer-events-none" />
 
       <div className="container mx-auto relative z-10">

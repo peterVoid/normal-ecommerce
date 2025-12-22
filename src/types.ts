@@ -71,7 +71,6 @@ export type CartItemType = {
   cartId: string;
 };
 
-// Base properties shared by both upload file types
 export type BaseUploadFile = {
   id: string;
   imageId?: string;

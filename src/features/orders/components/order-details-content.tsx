@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { OrderWithItems } from "@/app/(consumer)/profile/order/[id]/page";
 import { Badge } from "@/components/ui/badge";
@@ -176,17 +176,17 @@ export function OrderDetailsContent({ order }: OrderDetailsContentProps) {
               <div className="flex gap-3">
                 <MapPin className="w-5 h-5 shrink-0 mt-1" />
                 <div className="space-y-3">
-                  {order.user.addresses[0] ? (
+                  {order.address ? (
                     <>
                       <div>
                         <p className="font-black uppercase text-xs text-black/60 leading-none mb-1">
                           Receiver
                         </p>
                         <p className="font-bold text-sm uppercase">
-                          {order.user.addresses[0].receiverName}
+                          {order.address.receiverName}
                         </p>
                         <p className="text-xs font-bold text-black/60">
-                          {order.user.addresses[0].phoneNumber}
+                          {order.address.phoneNumber}
                         </p>
                       </div>
                       <div>
@@ -194,7 +194,7 @@ export function OrderDetailsContent({ order }: OrderDetailsContentProps) {
                           Address Label
                         </p>
                         <Badge className="bg-black text-white text-[10px] font-black uppercase rounded-sm px-1.5 py-0">
-                          {order.user.addresses[0].label}
+                          {order.address.label}
                         </Badge>
                       </div>
                       <div>
@@ -208,13 +208,11 @@ export function OrderDetailsContent({ order }: OrderDetailsContentProps) {
                               !isAddressExpanded && "line-clamp-3"
                             )}
                           >
-                            {order.user.addresses[0].completeAddress}
+                            {order.address.completeAddress}
                             <br />
-                            {order.user.addresses[0].subdistrict},{" "}
-                            {order.user.addresses[0].city}
+                            {order.address.subdistrict}, {order.address.city}
                             <br />
-                            {order.user.addresses[0].province},{" "}
-                            {order.user.addresses[0].postalCode}
+                            {order.address.province}, {order.address.postalCode}
                           </p>
                           <button
                             onClick={() =>
@@ -277,15 +275,6 @@ export function OrderDetailsContent({ order }: OrderDetailsContentProps) {
           </div>
         </div>
       </Card>
-
-      <div className="flex justify-center">
-        <Button
-          variant="default"
-          className="bg-black text-white hover:bg-black/80 font-black uppercase px-8 py-6 text-lg border-2 border-black shadow-[6px_6px_0px_0px_rgba(100,100,100,1)] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all"
-        >
-          Download Invoice
-        </Button>
-      </div>
     </div>
   );
 }

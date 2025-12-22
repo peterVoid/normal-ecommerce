@@ -33,9 +33,9 @@ export default async function Page({
   const order = await getOrderDetails(order_id);
 
   return (
-    <div className="min-h-screen bg-[#A855F7] p-6 md:p-12 flex items-center justify-center font-sans mt-16">
+    <div className="min-h-screen  p-6 md:p-12 flex items-center justify-center font-sans mt-16">
       {/* Decorative background pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,#00000011_25%,transparent_25%,transparent_50%,#00000011_50%,#00000011_75%,transparent_75%,transparent)] bg-size-[60px_60px] pointer-events-none" />
+      <div className="absolute inset-0 bg-size-[60px_60px] pointer-events-none" />
 
       <div className="relative w-full max-w-4xl grid md:grid-cols-[1fr_350px] gap-8 items-start">
         {/* Main Success Card */}
@@ -71,7 +71,7 @@ export default async function Page({
               asChild
               className="flex-1 h-14 text-lg font-bold border-4 border-black bg-yellow-400 text-black hover:bg-yellow-500 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all rounded-none"
             >
-              <Link href={`/orders/${order.id}`}>
+              <Link href={`/profile/order`}>
                 Track Order
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>

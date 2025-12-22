@@ -16,15 +16,7 @@ export async function getUserOrderDetails(orderId: string) {
   const order = await prisma.order.findUnique({
     where: { id: orderId, userId: session.user.id },
     include: {
-      user: {
-        include: {
-          addresses: {
-            where: {
-              mainAddress: true,
-            },
-          },
-        },
-      },
+      address: true,
       orderItems: {
         include: {
           product: {

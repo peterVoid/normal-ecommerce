@@ -1,11 +1,11 @@
 "use client";
 
-import { OrderWithItems } from "@/app/(consumer)/profile/order/[id]/page";
+import { OrderWithOrderItem } from "@/app/(consumer)/profile/order/page";
 import { motion } from "framer-motion";
 import { OrderCard } from "./order-card";
 
 interface OrderListProps {
-  orders: OrderWithItems[];
+  orders: OrderWithOrderItem[];
 }
 
 export function OrderList({ orders }: OrderListProps) {

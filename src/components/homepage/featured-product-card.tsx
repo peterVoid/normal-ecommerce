@@ -1,18 +1,16 @@
 "use client";
 
+import { addToCart } from "@/features/carts/actions/action";
 import { formatRupiah } from "@/lib/format";
 import { ProductEditProps } from "@/types";
-import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { addToCart } from "@/features/carts/actions/action";
-import { toast } from "sonner";
-import { useTransition } from "react";
 import Link from "next/link";
-import { GetAllProductsProps } from "@/app/(consumer)/products/page";
+import { useTransition } from "react";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 interface FeaturedProductCardProps {
-  product: GetAllProductsProps;
+  product: ProductEditProps["product"];
 }
 
 export function FeaturedProductCard({ product }: FeaturedProductCardProps) {

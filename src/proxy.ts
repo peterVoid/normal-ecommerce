@@ -7,6 +7,14 @@ export async function proxy(req: NextRequest) {
     headers: await headers(),
   });
 
+  if (session?.user && req.nextUrl.pathname.startsWith("/auth")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  if (!session?.user && !req.nextUrl.pathname.startsWith("/auth")) {
+    return NextResponse.redirect(new URL("/auth/signin", req.url));
+  }
+
   if (session?.user?.isAdmin !== true) {
     return NextResponse.redirect(new URL("/", req.url));
   }
@@ -15,5 +23,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/profile/:path*"],
+  matcher: ["/admin/:path*", "/profile/:path*", "/auth/:path*"],
 };

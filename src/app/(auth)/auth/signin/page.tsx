@@ -1,22 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { SignUpForm } from "@/features/auth/components/signup-form";
+import { SignInOAuth } from "@/features/auth/components/sign-in-oauth";
+import { SignInForm } from "@/features/auth/components/signin-form";
 import Link from "next/link";
 
-export default function Page() {
+export default function SigninPage() {
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center py-12 bg-[#F5F5F5]">
+    <div className="min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center py-12">
       <div className="flex flex-col items-center gap-2 mb-8">
         <div className="bg-yellow-400 border-2 border-black px-3 py-1 text-xs font-bold uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
           Account
         </div>
-        <h1 className="text-5xl font-black uppercase">Join Us</h1>
+        <h1 className="text-5xl font-black uppercase text-center">
+          Welcome <br /> Back
+        </h1>
         <p className="text-lg font-medium text-gray-600">
-          Create your bold account
+          Login to your bold account
         </p>
       </div>
 
       <div className="w-full max-w-md bg-white border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-        <SignUpForm />
+        <SignInForm />
 
         <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
@@ -29,25 +32,14 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant="noShadow"
-            className="w-full bg-white border-4 border-black h-12 font-bold hover:bg-gray-50"
-          >
-            GOOGLE
-          </Button>
-          <Button
-            variant="noShadow"
-            className="w-full bg-white border-4 border-black h-12 font-bold hover:bg-gray-50"
-          >
-            FACEBOOK
-          </Button>
+        <div className="grid grid-cols-1 gap-4">
+          <SignInOAuth provider="google" />
         </div>
 
         <div className="mt-8 text-center text-sm font-bold uppercase">
-          Have an account?{" "}
-          <Link href="/signin" className="underline hover:text-cyan-600">
-            LOGIN
+          Need an account?{" "}
+          <Link href="/auth/signup" className="underline hover:text-cyan-600">
+            SIGN UP
           </Link>
         </div>
       </div>

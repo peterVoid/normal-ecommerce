@@ -23,7 +23,8 @@ export function SignUpForm() {
       password: formData.get("password") as string,
       fetchOptions: {
         onSuccess: () => {
-          router.push("/signin");
+          router.push("/auth/signin");
+          toast.success("Registration completed. Please verify your emaail");
         },
         onError: ({ error }) => {
           toast.error(error.message ?? "Something went wrong");

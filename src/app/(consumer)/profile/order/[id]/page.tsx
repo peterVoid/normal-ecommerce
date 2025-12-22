@@ -4,15 +4,7 @@ import { Prisma } from "@/generated/prisma/client";
 
 export type OrderWithItems = Prisma.OrderGetPayload<{
   include: {
-    user: {
-      include: {
-        addresses: {
-          where: {
-            mainAddress: true;
-          };
-        };
-      };
-    };
+    address: true;
     orderItems: {
       include: {
         product: {

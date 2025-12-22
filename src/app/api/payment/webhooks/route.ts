@@ -32,15 +32,24 @@ export async function POST(req: NextRequest) {
 
     const midtransData = await (snap as any).transaction.notification(body);
 
-    const updateOrder = await prisma.order.update({
+    let status: OrderStatus;
+
+    if (midtransData.transaction_status === "settlement") {
+      status = OrderStatus.PAID;
+    } else if (midtransData.transaction_status === "pending") {
+      status = OrderStatus.PENDING;
+    } else if (midtransData.transaction_status === "expire") {
+      status = OrderStatus.EXPIRED;
+    } else if (midtransData.transaction_status === "cancel") {
+      status = OrderStatus.CANCELLED;
+    }
+
+    await prisma.order.update({
       where: {
         id: midtransData.order_id,
       },
       data: {
-        status:
-          midtransData.transaction_status === "settlement"
-            ? OrderStatus.PAID
-            : OrderStatus.PENDING,
+        status: status!,
         paymentMethod: midtransData.payment_type,
         paymentStatus: midtransData.transaction_status,
       },

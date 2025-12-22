@@ -1,8 +1,23 @@
 import { getUserOrders } from "@/dal/getOrders";
 import { OrderList } from "@/features/orders/components/order-list";
+import { Prisma } from "@/generated/prisma/client";
+
+export type OrderWithOrderItem = Prisma.OrderGetPayload<{
+  include: {
+    orderItems: {
+      include: {
+        product: {
+          include: {
+            images: true;
+          };
+        };
+      };
+    };
+  };
+}>;
 
 export default async function OrderPage() {
-  const orders = await getUserOrders();
+  const orders: OrderWithOrderItem[] = await getUserOrders();
 
   return (
     <div className="space-y-8">

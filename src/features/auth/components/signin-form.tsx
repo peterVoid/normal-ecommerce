@@ -65,21 +65,9 @@ export function SignInForm() {
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="remember"
-            className="size-5 border-2 border-black rounded-none accent-black"
-          />
-          <label
-            htmlFor="remember"
-            className="text-xs font-bold uppercase cursor-pointer"
-          >
-            Remember me
-          </label>
-        </div>
+        <div className="flex items-center gap-2"></div>
         <Link
-          href="/forgot-password"
+          href="/auth/forgot-password"
           className="text-xs font-bold uppercase hover:text-cyan-600"
         >
           Forgot password?
