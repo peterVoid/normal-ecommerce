@@ -40,7 +40,11 @@ export function AlertDialogActionButton({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button size={triggerButtonSize} className={className}>
+        <Button
+          size={triggerButtonSize}
+          className={className}
+          disabled={disabled}
+        >
           {buttonContent}
         </Button>
       </AlertDialogTrigger>

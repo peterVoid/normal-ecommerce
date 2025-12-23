@@ -13,7 +13,7 @@ export function DisplayUserCard({
   user,
   refetch,
 }: {
-  user: UserAuth | undefined;
+  user: UserAuth;
   refetch: () => void;
 }) {
   return (

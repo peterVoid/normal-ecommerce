@@ -77,7 +77,7 @@ export function ProfileSidebar() {
             onClick={handleLogout}
             className={cn(
               "flex items-center gap-3 px-4 py-3 border-2 border-black rounded-none transition-all font-bold uppercase text-sm w-full",
-              "bg-red-600 text-white hover:bg-red-700 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5"
+              "bg-red-600 text-white hover:bg-red-700 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 cursor-pointer"
             )}
           >
             <LogOut className="h-5 w-5" />

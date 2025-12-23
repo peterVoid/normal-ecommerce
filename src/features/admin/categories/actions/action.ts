@@ -9,6 +9,8 @@ import {
 } from "../schemas/schema";
 import { revalidatePath } from "next/cache";
 import z from "zod";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { S3 } from "@/lib/s3-client";
 
 export async function updateCategory({
   data,
@@ -45,7 +47,11 @@ export async function updateCategory({
       name,
       slug,
       description: description || null,
-      image: image || null,
+      image: {
+        connect: {
+          id: image,
+        },
+      },
       isActive,
     },
   });
@@ -74,6 +80,14 @@ export async function deleteCategory({
 
   const existingCategory = await prisma.category.findUnique({
     where: { id },
+    include: {
+      image: {
+        select: {
+          id: true,
+          key: true,
+        },
+      },
+    },
   });
 
   if (!existingCategory) {
@@ -81,6 +95,15 @@ export async function deleteCategory({
       success: false,
       message: "Category not found",
     };
+  }
+
+  if (existingCategory.image) {
+    const command = new DeleteObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: existingCategory.image.key,
+    });
+
+    await S3.send(command);
   }
 
   await prisma.category.delete({
@@ -127,7 +150,11 @@ export async function createCategory(
       name,
       slug,
       description: description || null,
-      image: image || null,
+      image: {
+        connect: {
+          id: image,
+        },
+      },
       isActive,
     },
   });

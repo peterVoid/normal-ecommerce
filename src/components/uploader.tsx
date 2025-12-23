@@ -16,7 +16,9 @@ import { v4 as uuidv4 } from "uuid";
 type UploaderProps =
   | {
       isEditMode: true;
-      onChange: (value: { id: string; key: string }[]) => void;
+      onChange: (
+        value: { id: string; key: string; placeholder?: string }[]
+      ) => void;
       maxFiles?: number;
       maxSize?: number;
       disabled?: boolean;
@@ -24,7 +26,9 @@ type UploaderProps =
     }
   | {
       isEditMode?: false;
-      onChange?: (value: { id: string; key: string }[]) => void;
+      onChange?: (
+        value: { id: string; key: string; placeholder?: string }[]
+      ) => void;
       maxFiles?: number;
       maxSize?: number;
       disabled?: boolean;
@@ -171,7 +175,6 @@ export function Uploader({
           };
 
           xhr.onerror = () => {
-            // This will be happen when the request failed
             reject(new Error("Failed to upload file"));
           };
 
@@ -203,6 +206,11 @@ export function Uploader({
 
     if (duplicateFile) {
       toast.error(`${(duplicateFile.file as File).name} already exists`);
+      return;
+    }
+
+    if (acceptedFiles.length + (files || []).length > maxFiles) {
+      toast.error(`Too many files ${maxFiles}`);
       return;
     }
 
@@ -311,7 +319,7 @@ export function Uploader({
   }, [files, isEditMode]);
 
   return (
-    <div className="w-full space-y-5">
+    <div className="w-full space-y-5 ">
       <div
         {...getRootProps()}
         className={cn(

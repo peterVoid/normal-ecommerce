@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { serializeProduct } from "@/lib/utils";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -26,12 +27,21 @@ export async function getCategories({
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      image: true,
+      products: true,
+    },
   });
 
   const total = await prisma.category.count();
 
+  const serialiseCategoryProducts = categories.map((category) => ({
+    ...category,
+    products: category.products.map((product) => serializeProduct(product)),
+  }));
+
   return {
-    data: categories,
+    data: serialiseCategoryProducts,
     metadata: {
       hasNextPage: take + skip < total,
       totalPages: Math.ceil(total / take),

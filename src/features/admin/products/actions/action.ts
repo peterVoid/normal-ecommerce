@@ -98,6 +98,8 @@ export async function updateProduct(
       },
     });
 
+    revalidatePath("/admin/products");
+
     return {
       success: true,
       message: "Product updated successfully",

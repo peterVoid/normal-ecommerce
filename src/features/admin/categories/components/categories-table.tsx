@@ -2,8 +2,8 @@
 
 import { AlertDialogActionButton } from "@/components/alert-dialog-action-button";
 import { Badge } from "@/components/ui/badge";
-import { Category } from "@/generated/prisma/client";
-import { Trash2, Image as ImageIcon, Calendar } from "lucide-react";
+import { GetCategoriesType } from "@/dal/getCategories";
+import { Calendar, Image as ImageIcon, Package, Trash2 } from "lucide-react";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { deleteCategory } from "../actions/action";
@@ -13,7 +13,7 @@ export function CategoriesTable({
   categories,
   skip,
 }: {
-  categories: Category[];
+  categories: GetCategoriesType["data"];
   skip: number;
 }) {
   const [isDeleting, startDeleting] = useTransition();
@@ -43,6 +43,7 @@ export function CategoriesTable({
             Description
           </th>
           <th className="p-5 border-b-2 border-border">Status</th>
+          <th className="p-5 border-b-2 border-border">Products count</th>
           <th className="p-5 border-b-2 border-border text-right last:rounded-tr-xl">
             Actions
           </th>
@@ -62,9 +63,9 @@ export function CategoriesTable({
             <td className="p-5 align-top">
               <div className="flex items-start gap-4">
                 <div className="relative w-16 h-16 shrink-0 rounded-base border-2 border-border bg-white overflow-hidden shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  {category.image ? (
+                  {category.imageId ? (
                     <img
-                      src={category.image}
+                      src={category.image?.src}
                       alt={category.name}
                       className="w-full h-full object-cover"
                     />
@@ -115,6 +116,17 @@ export function CategoriesTable({
               </Badge>
             </td>
 
+            <td className="p-5 align-top">
+              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-base border-2 border-border bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
+                <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-main/20 text-main border border-border/20">
+                  <Package className="h-3.5 w-3.5" />
+                </div>
+                <span className="font-heading text-sm whitespace-nowrap">
+                  {category.products.length} Items
+                </span>
+              </div>
+            </td>
+
             <td className="p-5 text-right align-top">
               <div className="flex justify-end gap-3">
                 <EditCategoryButton category={category} />
@@ -129,7 +141,7 @@ export function CategoriesTable({
                   dialogTitle="Delete Category"
                   dialogDescription={`Are you sure you want to delete "${category.name}"? This action cannot be undone.`}
                   triggerButtonSize="icon"
-                  disabled={isDeleting}
+                  disabled={isDeleting || category.products.length > 0}
                   isPending={isDeleting}
                   className="h-10 w-10 border-2 border-border bg-white hover:bg-red-400 hover:text-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                 />
