@@ -4,7 +4,13 @@ import { UsersContent } from "@/features/users";
 import { PAGE_SIZE } from "@/constants";
 import { PageProps } from "@/types";
 
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
 export default async function UsersPage(props: PageProps) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   const pageNumber = (await props.searchParams)?.page as string | undefined;
   const skip = ((pageNumber ? Number(pageNumber) : 1) - 1) * PAGE_SIZE;
 
@@ -46,7 +52,7 @@ export default async function UsersPage(props: PageProps) {
   ];
 
   return (
-    <div className="container py-10">
+    <div className="container py-10 px-4">
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl font-heading">Users</h1>
@@ -88,6 +94,7 @@ export default async function UsersPage(props: PageProps) {
           users={users}
           metadata={metadata}
           page={pageNumber !== undefined ? pageNumber : "1"}
+          session={session}
         />
       </div>
     </div>

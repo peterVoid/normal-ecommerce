@@ -19,7 +19,7 @@ export async function updateWishlist(
     if (!session?.user) {
       return {
         success: false,
-        message: "User not authenticated",
+        message: "Please login to add to wishlist",
       };
     }
 

@@ -58,7 +58,7 @@ export function DisplayNameInputForm({
 
         <Button
           disabled={defaultValue === value || !value || isPending}
-          className="w-full"
+          className="w-full bg-white font-semibold text-black border-2 border-black"
           onClick={handleSubmit}
         >
           {isPending ? "Saving..." : "Save"}

@@ -100,10 +100,6 @@ export function AddToCartForm({
 
         <div className="flex gap-2">
           <WishlistButton productId={productId} isWishlist={isWishlist} />
-
-          <button className="flex h-16 w-16 items-center justify-center border-4 border-black bg-pink-500 text-white hover:-translate-y-1 transition-transform">
-            <Share2 className="h-7 w-7 stroke-[3px]" />
-          </button>
         </div>
       </div>
     </div>

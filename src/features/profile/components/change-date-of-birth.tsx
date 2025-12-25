@@ -110,7 +110,7 @@ export function ChangeDateOfBirth({ refetch }: ChangeDateOfBirthProps) {
       </div>
 
       <Button
-        className="w-full mt-5"
+        className="w-full mt-5 bg-white font-semibold text-black border-2 border-black"
         onClick={saveDateOfBirth}
         disabled={isPending}
       >

@@ -12,14 +12,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { Button, ButtonProps } from "./ui/button";
+import { Button } from "./ui/button";
 
 interface AlertDialogActionButtonProps {
   action: () => void;
   buttonContent: React.ReactNode;
   dialogTitle: string;
   dialogDescription?: string;
-  triggerButtonSize?: ButtonProps["size"];
+  triggerButtonSize?: "default" | "sm" | "lg" | "icon";
   disabled?: boolean;
   isPending?: boolean;
   className?: string;
@@ -56,13 +56,19 @@ export function AlertDialogActionButton({
           )}
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={disabled}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel
+            disabled={disabled}
+            className="bg-white font-semibold border-2 border-border"
+          >
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={(e) => {
               e.preventDefault();
               action();
             }}
             disabled={disabled || isPending}
+            className="bg-red-500 font-semibold border-2 border-border"
           >
             {isPending ? "Deleting..." : "Delete"}
           </AlertDialogAction>

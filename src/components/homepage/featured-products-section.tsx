@@ -54,7 +54,6 @@ export async function FeaturedProductsSection() {
           </div>
 
           <Button
-            variant="noShadow"
             asChild
             className="bg-white border-4 border-black font-black h-16 px-10 text-xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all"
           >

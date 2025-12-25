@@ -46,7 +46,6 @@ export function OrderDetailsContent({ order }: OrderDetailsContentProps) {
     <div className="max-w-4xl mx-auto space-y-8 pb-12">
       <div className="flex items-center gap-4">
         <Button
-          variant="neutral"
           size="icon"
           className="border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
           asChild

@@ -134,7 +134,7 @@ export function BioDataDialog({
     <Dialog>
       <DialogTrigger asChild>
         <button
-          className="flex items-center justify-center w-8 h-8 bg-yellow-400 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-yellow-300 hover:translate-x-px hover:translate-y-px hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer"
+          className="flex items-center justify-center w-8 h-8 bg-yellow-400 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-yellow-300 hover:translate-x-px hover:translate-y-px hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer "
           title="Edit Name"
         >
           <Edit3 className="w-4 h-4 text-black" />

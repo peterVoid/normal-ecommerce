@@ -63,10 +63,7 @@ export default async function Page({
           <div className="pt-4 border-t-2 border-border flex justify-center">
             <Link
               href="/auth/signin"
-              className={cn(
-                buttonVariants({ variant: "neutral", size: "sm" }),
-                "w-full"
-              )}
+              className={cn(buttonVariants({ size: "sm" }), "w-full")}
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Login

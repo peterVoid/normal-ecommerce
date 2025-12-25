@@ -13,7 +13,7 @@ export type GetAllProductsProps = Omit<
   ProductDecimalColumn
 > & {
   price?: string;
-  weight?: string;
+  weight?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -38,14 +38,15 @@ export default async function Page(props: PageProps) {
 
         <div className="container mx-auto relative z-10 text-center md:text-left">
           <span className="inline-block bg-black text-white px-3 py-1 font-bold text-xs uppercase mb-4 tracking-widest">
-            Shop Collection {new Date().getFullYear()}
+            Complete Catalog
           </span>
           <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4 italic">
-            All <span className="text-white text-stroke-black">Products</span>
+            Shop{" "}
+            <span className="text-white text-stroke-black">All Items.</span>
           </h1>
           <p className="font-bold text-lg md:text-xl max-w-xl leading-relaxed">
-            Bold designs. Zero compromises. Find your statement piece in our
-            curated collection of neo-brutalist essentials.
+            Everything you see is yours for the taking. Browse our full range of
+            curated essentials and find the perfect piece that speaks to you.
           </p>
         </div>
       </div>

@@ -5,14 +5,6 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function getProductByKey(key: string) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session?.user) {
-    return redirect("/signin");
-  }
-
   const products = await prisma.product.findFirst({
     where: {
       OR: [
@@ -69,7 +61,6 @@ export async function getProducts({
           alt: true,
           src: true,
         },
-        take: 1,
       },
     },
   });
@@ -88,4 +79,47 @@ export async function getProducts({
       totalPages: Math.ceil(total / take),
     },
   };
+}
+
+export async function getRelatedProducts(
+  categoryId: string,
+  currentProductId: string,
+  limit: number = 4
+) {
+  const products = await prisma.product.findMany({
+    where: {
+      categoryId,
+      id: {
+        not: currentProductId,
+      },
+      isActive: true,
+    },
+    take: limit,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+      images: {
+        select: {
+          id: true,
+          key: true,
+          alt: true,
+          src: true,
+          isMain: true,
+        },
+      },
+    },
+  });
+
+  const serializedProducts = products.map((product) => ({
+    ...product,
+    ...serializeProduct(product),
+  }));
+
+  return serializedProducts;
 }

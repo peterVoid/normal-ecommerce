@@ -211,25 +211,6 @@ export function ListingControls({
                     </label>
                   </div>
                 </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-black uppercase italic border-b-2 border-black pb-2">
-                    Brands
-                  </h3>
-                  <div className="grid grid-cols-2 gap-2">
-                    {["Void", "Brutal", "Edge", "Vibe", "Core", "Lust"].map(
-                      (brand) => (
-                        <div
-                          key={brand}
-                          className="flex items-center gap-3 p-3 border-2 border-black font-bold uppercase text-xs hover:bg-black hover:text-white transition-colors cursor-pointer"
-                        >
-                          <div className="w-4 h-4 border-2 border-black bg-white" />
-                          {brand}
-                        </div>
-                      )
-                    )}
-                  </div>
-                </div>
               </div>
 
               <div className="p-8 border-t-4 border-black bg-white flex gap-4">

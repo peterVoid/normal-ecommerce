@@ -61,3 +61,12 @@ export function generateYear() {
 export function generatePublicImageURL(key: string) {
   return `https://uploader.t3.storage.dev/${key}`;
 }
+
+export function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}

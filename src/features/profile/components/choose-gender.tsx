@@ -85,7 +85,7 @@ export function ChooseGender({ refetch, defaultValue }: ChooseGenderProps) {
       </div>
 
       <Button
-        className="w-full mt-7"
+        className="w-full mt-7 bg-white font-semibold text-black border-2 border-black"
         onClick={handleChangeGender}
         disabled={isPending}
       >

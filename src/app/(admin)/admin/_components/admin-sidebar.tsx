@@ -3,12 +3,13 @@
 import {
   BoxesIcon,
   LayoutDashboard,
+  LogOutIcon,
   NfcIcon,
-  Settings,
+  ShoppingBagIcon,
   Users2Icon,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   Sidebar,
@@ -24,6 +25,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
 
 function DummyAvatar({ src, fallback }: { src: string; fallback: string }) {
   return (
@@ -57,6 +59,11 @@ const items = [
         url: "/admin/products",
         icon: BoxesIcon,
       },
+      {
+        title: "Orders",
+        url: "/admin/orders",
+        icon: ShoppingBagIcon,
+      },
     ],
   },
 ];
@@ -65,6 +72,10 @@ export function AdminSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const { data: session } = authClient.useSession();
+
   const { state } = useSidebar();
 
   return (
@@ -112,20 +123,33 @@ export function AdminSidebar({
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="Settings">
-              <Link href="/admin/settings">
-                <Settings />
-                <span>Settings</span>
-              </Link>
+            <SidebarMenuButton
+              tooltip="Logout"
+              className="hover:bg-red-200"
+              onClick={() =>
+                authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      router.push("/");
+                    },
+                  },
+                })
+              }
+            >
+              <LogOutIcon />
+              <span>Logout</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
         <div className="mt-4 flex items-center gap-3 px-2 py-4 border-t">
-          <DummyAvatar src="https://github.com/shadcn.png" fallback="RL" />
+          <DummyAvatar
+            src={session?.user?.image || "https://github.com/shadcn.png"}
+            fallback="RL"
+          />
           <div className="flex flex-col text-sm">
-            <span className="font-semibold">Ricardo Leoni</span>
+            <span className="font-semibold">{session?.user?.name}</span>
             <span className="text-xs text-muted-foreground">
-              ricardo_leo@learncraft.com
+              {session?.user?.email}
             </span>
           </div>
         </div>

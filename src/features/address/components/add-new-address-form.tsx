@@ -193,36 +193,42 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-4xl mx-auto p-1"
+      className="w-full max-w-4xl mx-auto p-0"
     >
-      <Card className="border shadow-lg bg-card/50 backdrop-blur-sm overflow-hidden">
-        <CardContent className="p-6">
+      <Card className="border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white overflow-hidden rounded-none">
+        <CardContent className="p-8">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="overflow-y-auto max-h-[50vh] px-1 pr-2">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <div className="overflow-y-auto max-h-[60vh] px-1 pr-4 custom-scrollbar">
                 {/* Personal Information Section */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
-                    <User className="w-4 h-4" /> Personal Details
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 border-b-4 border-black pb-2 mb-6">
+                    <User className="w-6 h-6 stroke-[3px]" />
+                    <h3 className="text-xl font-black uppercase tracking-tight">
+                      Personal Details
+                    </h3>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <FormField
                       control={form.control}
                       name="receiver_name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Receiver Name</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            Receiver Name
+                          </FormLabel>
                           <FormControl>
-                            <div className="relative">
-                              <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <div className="relative group">
+                              <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black stroke-[3px] transition-transform group-focus-within:scale-110" />
                               <Input
                                 {...field}
                                 placeholder="e.g. John Doe"
-                                className="pl-9 bg-background/50 focus:bg-background transition-colors"
+                                className="pl-12 py-6 bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold placeholder:text-gray-400"
                               />
                             </div>
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -231,10 +237,12 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                       name="phone_number"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Phone Number</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            Phone Number
+                          </FormLabel>
                           <FormControl>
-                            <div className="relative">
-                              <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <div className="relative group">
+                              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black stroke-[3px] transition-transform group-focus-within:scale-110" />
                               <Input
                                 {...field}
                                 onChange={(e) => {
@@ -247,11 +255,11 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                                 }}
                                 maxLength={12}
                                 placeholder="e.g. 08123456789"
-                                className="pl-9 bg-background/50 focus:bg-background transition-colors"
+                                className="pl-12 py-6 bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold placeholder:text-gray-400"
                               />
                             </div>
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -259,17 +267,23 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                 </div>
 
                 {/* Location Details Section */}
-                <div className="space-y-4 mt-6">
-                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2 mt-2">
-                    <Map className="w-4 h-4" /> Location Details
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-6 mt-12">
+                  <div className="flex items-center gap-3 border-b-4 border-black pb-2 mb-6">
+                    <Map className="w-6 h-6 stroke-[3px]" />
+                    <h3 className="text-xl font-black uppercase tracking-tight">
+                      Location Details
+                    </h3>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <FormField
                       control={form.control}
                       name="province"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Province</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            Province
+                          </FormLabel>
                           <Select
                             defaultValue={field.value}
                             onValueChange={(e) => {
@@ -288,19 +302,23 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                             }}
                           >
                             <FormControl>
-                              <SelectTrigger className="bg-background/50 focus:bg-background transition-colors">
+                              <SelectTrigger className="py-6 bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold">
                                 <SelectValue placeholder="Select Province" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="border-4 border-black rounded-none">
                               {provinces.map((item) => (
-                                <SelectItem key={item.id} value={item.name}>
+                                <SelectItem
+                                  key={item.id}
+                                  value={item.name}
+                                  className="font-bold focus:bg-yellow-400 focus:text-black"
+                                >
                                   {item.name}
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -310,7 +328,9 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                       name="city"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>City</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            City
+                          </FormLabel>
                           <Select
                             defaultValue={field.value}
                             onValueChange={(e) => {
@@ -328,19 +348,23 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                             disabled={!provinceId}
                           >
                             <FormControl>
-                              <SelectTrigger className="bg-background/50 focus:bg-background transition-colors">
+                              <SelectTrigger className="py-6 bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold disabled:opacity-50">
                                 <SelectValue placeholder="Select City" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="border-4 border-black rounded-none">
                               {cities.map((item) => (
-                                <SelectItem key={item.id} value={item.name}>
+                                <SelectItem
+                                  key={item.id}
+                                  value={item.name}
+                                  className="font-bold focus:bg-yellow-400 focus:text-black"
+                                >
                                   {item.name}
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -350,7 +374,9 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                       name="subdistrict"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Subdistrict</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            Subdistrict
+                          </FormLabel>
                           <Select
                             defaultValue={field.value}
                             onValueChange={(e) => {
@@ -366,19 +392,23 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                             disabled={!cityId}
                           >
                             <FormControl>
-                              <SelectTrigger className="bg-background/50 focus:bg-background transition-colors">
+                              <SelectTrigger className="py-6 bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold disabled:opacity-50">
                                 <SelectValue placeholder="Select Subdistrict" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="border-4 border-black rounded-none">
                               {subdistricts.map((item) => (
-                                <SelectItem key={item.id} value={item.name}>
+                                <SelectItem
+                                  key={item.id}
+                                  value={item.name}
+                                  className="font-bold focus:bg-yellow-400 focus:text-black"
+                                >
                                   {item.name}
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -388,10 +418,12 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                       name="postal_code"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Postal Code</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            Postal Code
+                          </FormLabel>
                           <FormControl>
-                            <div className="relative">
-                              <Hash className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <div className="relative group">
+                              <Hash className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black stroke-[3px] transition-transform group-focus-within:scale-110" />
                               <Input
                                 type="text"
                                 {...field}
@@ -408,44 +440,52 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                                 }}
                                 placeholder="e.g. 12345"
                                 maxLength={5}
-                                className="pl-9 bg-background/50 focus:bg-background transition-colors"
+                                className="pl-12 py-6 bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold placeholder:text-gray-400"
                               />
                             </div>
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 gap-6 pt-2">
+                  <div className="grid grid-cols-1 gap-8 pt-4">
                     <FormField
                       control={form.control}
                       name="label"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Label as</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            Label as
+                          </FormLabel>
                           <Select
                             defaultValue={field.value}
                             onValueChange={field.onChange}
                           >
                             <FormControl>
-                              <SelectTrigger className="bg-background/50 focus:bg-background transition-colors">
+                              <SelectTrigger className="py-6 bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold">
                                 <SelectValue placeholder="Select location type" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="border-4 border-black rounded-none">
                               {PlaceLabel.map((item) => (
-                                <SelectItem key={item.text} value={item.text}>
-                                  <div className="flex items-center gap-2">
-                                    <item.icon className="w-4 h-4 text-muted-foreground" />
-                                    <span>{item.text}</span>
+                                <SelectItem
+                                  key={item.text}
+                                  value={item.text}
+                                  className="font-bold focus:bg-yellow-400 focus:text-black"
+                                >
+                                  <div className="flex items-center gap-3">
+                                    <item.icon className="w-5 h-5 stroke-[2px]" />
+                                    <span className="uppercase tracking-tight">
+                                      {item.text}
+                                    </span>
                                   </div>
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -455,18 +495,20 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                       name="complete_address"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Complete Address</FormLabel>
+                          <FormLabel className="font-black uppercase text-sm tracking-widest">
+                            Complete Address
+                          </FormLabel>
                           <FormControl>
-                            <div className="relative">
-                              <Navigation className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <div className="relative group">
+                              <Navigation className="absolute left-4 top-4 h-5 w-5 text-black stroke-[3px] transition-transform group-focus-within:scale-110" />
                               <Textarea
                                 {...field}
                                 placeholder="Street name, building, house number, etc."
-                                className="pl-9 min-h-[100px] resize-none bg-background/50 focus:bg-background transition-colors"
+                                className="pl-12 min-h-[150px] resize-none bg-white border-2 border-black rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[2px] focus:translate-y-[2px] transition-all font-bold placeholder:text-gray-400"
                               />
                             </div>
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="font-bold italic text-red-600" />
                         </FormItem>
                       )}
                     />
@@ -474,8 +516,8 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t">
-                <div className="flex items-center space-x-2 bg-muted/30 px-4 py-2 rounded-lg border">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t-4 border-black">
+                <div className="flex items-center space-x-3 bg-gray-100 px-6 py-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                   <Checkbox
                     id="main_address"
                     checked={isMainAddress}
@@ -483,10 +525,11 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
                       form.setValue("main_address", e as boolean)
                     }
                     disabled={address?.mainAddress}
+                    className="w-6 h-6 border-2 border-black rounded-none data-[state=checked]:bg-black data-[state=checked]:text-white"
                   />
                   <label
                     htmlFor="main_address"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    className="text-sm font-black uppercase tracking-tight peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
                   >
                     Set as main address
                   </label>
@@ -494,23 +537,25 @@ export function AddNewAddressForm({ address }: AddNewAddressFormProps) {
 
                 <Button
                   type="submit"
-                  className="w-full sm:w-auto min-w-[150px] shadow-lg hover:shadow-xl transition-all"
+                  className="w-full sm:w-auto min-w-[200px] py-8 bg-yellow-400 hover:bg-yellow-500 text-black border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-black uppercase tracking-widest text-lg"
                   disabled={
                     form.formState.isSubmitting || !form.formState.isValid
                   }
                 >
                   {form.formState.isSubmitting ? (
                     <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />{" "}
+                      <Loader2 className="w-5 h-5 mr-3 animate-spin stroke-[3px]" />{" "}
                       Saving...
                     </>
                   ) : address ? (
                     <>
-                      <Save className="w-4 h-4 mr-2" /> Update Address
+                      <Save className="w-5 h-5 mr-3 stroke-[3px]" /> Update
+                      Address
                     </>
                   ) : (
                     <>
-                      <Save className="w-4 h-4 mr-2" /> Save Address
+                      <Save className="w-5 h-5 mr-3 stroke-[3px]" /> Save
+                      Address
                     </>
                   )}
                 </Button>

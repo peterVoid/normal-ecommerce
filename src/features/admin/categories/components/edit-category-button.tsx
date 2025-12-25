@@ -253,7 +253,6 @@ export function EditCategoryButton({
               <DialogClose asChild>
                 <Button
                   type="button"
-                  variant="neutral"
                   className="flex-1 h-14 font-black text-lg border-4 border-black bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
                 >
                   CANCEL
@@ -262,7 +261,7 @@ export function EditCategoryButton({
               <Button
                 onClick={form.handleSubmit(handleSubmit)}
                 disabled={form.formState.isSubmitting}
-                className="flex-[2] h-14 font-black text-lg border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all bg-main text-white uppercase tracking-tighter"
+                className="flex-2 h-14 font-black text-lg border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all bg-main text-white uppercase tracking-tighter"
               >
                 {form.formState.isSubmitting ? "SAVING..." : "COMMIT CHANGES"}
               </Button>

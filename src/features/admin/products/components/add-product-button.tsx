@@ -54,7 +54,7 @@ export function AddProductButton({ categories }: { categories: Category[] }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="h-14 px-8 text-lg font-heading gap-3 border-2 border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px]">
+        <Button className="h-14 px-8 text-lg font-heading gap-3 border-2 border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] bg-white">
           <Plus className="h-6 w-6" />
           Add Product
         </Button>

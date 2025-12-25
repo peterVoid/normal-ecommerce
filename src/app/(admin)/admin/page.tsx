@@ -8,7 +8,7 @@ import {
 } from "@/features/dashboard/actions/action";
 import { formatRupiah } from "@/lib/format";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { use, useEffect, useState, useTransition } from "react";
 import { CustomersCard } from "./_components/customers-card";
 import {
   DateRangePicker,
@@ -58,13 +58,17 @@ type DashboardData = {
   };
 };
 
-export default function AdminPage() {
+export default function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string }>;
+}) {
   const [dateRange, setDateRange] = useState<DateRange>(null);
   const [isPending, startTransition] = useTransition();
   const [data, setData] = useState<DashboardData | null>(null);
 
-  const searchParams = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
+  const params = use(searchParams);
+  const page = Number(params.page || "1");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +98,7 @@ export default function AdminPage() {
 
   if (!data) {
     return (
-      <div className="flex p-6 flex-col gap-6 min-h-screen font-mono bg-[#f3f0e9] items-center justify-center">
+      <div className="flex p-6 flex-col gap-6 min-h-screen font-mono items-center justify-center">
         <div className="text-2xl font-black uppercase italic">Loading...</div>
       </div>
     );
@@ -120,7 +124,7 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="flex p-6 flex-col gap-6 min-h-screen font-mono bg-[#f3f0e9]">
+    <div className="flex p-6 flex-col gap-6 min-h-screen font-mono">
       <StatsCards stats={statsDisplay} />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-8 flex flex-col gap-6">

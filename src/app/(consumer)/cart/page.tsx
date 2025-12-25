@@ -8,8 +8,7 @@ export default async function CartPage() {
   const { items: initialItems, nextCursor, hasMore } = await fetchCartItems();
 
   return (
-    <div className="min-h-screen bg-[#FFF0F5] p-6 md:p-12 font-sans  relative overflow-x-hidden">
-      {/* Decorative Pattern */}
+    <div className="min-h-screen p-6 md:p-12 font-sans  relative overflow-x-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(#000_1px,transparent_1px)] bg-size-[20px_20px] opacity-10 pointer-events-none" />
 
       <div className="mx-auto max-w-6xl relative z-10 mt-20">

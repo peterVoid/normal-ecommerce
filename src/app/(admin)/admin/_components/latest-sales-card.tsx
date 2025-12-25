@@ -3,7 +3,15 @@
 import { Pagination } from "@/components/pagination";
 import { getLatestSales } from "@/features/dashboard/actions/action";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Clock } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  Package,
+  PackageCheck,
+  Truck,
+  XCircle,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { DateRange } from "./date-range-picker";
 
@@ -31,6 +39,47 @@ interface LatestSalesCardProps {
   initialData: SalesData;
   dateRange: DateRange;
 }
+
+const statusConfig: Record<
+  string,
+  { color: string; icon: any; label: string }
+> = {
+  PENDING: {
+    color: "bg-[#fefcbf]",
+    icon: Clock,
+    label: "Pending",
+  },
+  PAID: {
+    color: "bg-[#c6f6d5]",
+    icon: CheckCircle2,
+    label: "Paid",
+  },
+  PROCESSING: {
+    color: "bg-[#bee3f8]",
+    icon: Package,
+    label: "Processing",
+  },
+  SHIPPED: {
+    color: "bg-[#e9d8fd]",
+    icon: Truck,
+    label: "Shipped",
+  },
+  DELIVERED: {
+    color: "bg-[#b2f5ea]",
+    icon: PackageCheck,
+    label: "Delivered",
+  },
+  CANCELLED: {
+    color: "bg-[#fed7d7]",
+    icon: XCircle,
+    label: "Cancelled",
+  },
+  EXPIRED: {
+    color: "bg-[#edf2f7]",
+    icon: AlertCircle,
+    label: "Expired",
+  },
+};
 
 export function LatestSalesCard({
   initialData,
@@ -120,19 +169,22 @@ export function LatestSalesCard({
                     {sale.amount}
                   </div>
 
-                  <div
-                    className={cn(
-                      "hidden sm:flex px-3 py-1 rounded-full border-2 border-black text-xs font-black items-center gap-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
-                      sale.status === "Paid" ? "bg-[#c6f6d5]" : "bg-[#fefcbf]"
-                    )}
-                  >
-                    {sale.status === "Paid" ? (
-                      <CheckCircle2 className="h-3.5 w-3.5" />
-                    ) : (
-                      <Clock className="h-3.5 w-3.5" />
-                    )}
-                    {sale.status}
-                  </div>
+                  {(() => {
+                    const config =
+                      statusConfig[sale.status] || statusConfig.PENDING;
+                    const Icon = config.icon;
+                    return (
+                      <div
+                        className={cn(
+                          "hidden sm:flex px-3 py-1 rounded-full border-2 border-black text-xs font-black items-center gap-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
+                          config.color
+                        )}
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                        {config.label}
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             ))

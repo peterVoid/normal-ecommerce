@@ -184,11 +184,7 @@ export async function getLatestSales(
     }),
   ]);
 
-  const count = await prisma.order.count({
-    where: dateFilter,
-  });
-
-  const totalPages = Math.ceil(count / limit);
+  const totalPages = Math.ceil(total / limit);
 
   const data = orders.map((order) => {
     const firstItem = order.orderItems[0];
@@ -200,10 +196,7 @@ export async function getLatestSales(
       name: product?.name || "Order",
       date: format(order.createdAt, "dd MMM yyyy"),
       amount: formatRupiah(order.totalAmount),
-      status:
-        order.status === "PAID" || order.status === "DELIVERED"
-          ? "Paid"
-          : "Pending",
+      status: order.status,
       image:
         image?.src ||
         "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=100&h=100&fit=crop",

@@ -43,7 +43,7 @@ export function ProductUploaderCard({
             <Button
               type="button"
               size="icon"
-              className="h-9 w-9 rounded-full shadow-lg translate-y-4 transition-transform duration-300 group-hover:translate-y-0"
+              className="h-9 w-9 rounded-full shadow-lg translate-y-4 transition-transform duration-300 group-hover:translate-y-0 bg-white"
               onClick={(e) => {
                 e.stopPropagation();
                 removeFile(file.id);

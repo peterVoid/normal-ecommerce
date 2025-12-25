@@ -16,6 +16,11 @@ export async function getUsers({ skip, take }: { skip: number; take: number }) {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      _count: {
+        select: { orders: true },
+      },
+    },
     take,
     skip,
   });

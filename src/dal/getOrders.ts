@@ -43,7 +43,7 @@ export async function getUserOrderDetails(orderId: string) {
   };
 }
 
-export async function getUserOrders() {
+export async function getUserOrders(cursor?: string) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -52,7 +52,8 @@ export async function getUserOrders() {
     return redirect("/signin");
   }
 
-  // TODO: ADD ORDER INFINITE SCROLLING
+  const ITEMS_PER_PAGE = 10;
+
   const orders = await prisma.order.findMany({
     where: {
       userId: session.user.id,
@@ -71,9 +72,18 @@ export async function getUserOrders() {
     orderBy: {
       createdAt: "desc",
     },
+    take: ITEMS_PER_PAGE + 1,
+    ...(cursor && {
+      cursor: { id: cursor },
+      skip: 1,
+    }),
   });
 
-  const serializeProductT = orders.map((order) => ({
+  const hasMore = orders.length > ITEMS_PER_PAGE;
+  const items = hasMore ? orders.slice(0, -1) : orders;
+  const nextCursor = hasMore ? orders[ITEMS_PER_PAGE - 1].id : undefined;
+
+  const serializedItems = items.map((order) => ({
     ...order,
     orderItems: order.orderItems.map((item) => ({
       ...item,
@@ -81,7 +91,11 @@ export async function getUserOrders() {
     })),
   }));
 
-  return serializeProductT;
+  return {
+    items: serializedItems,
+    nextCursor,
+    hasMore,
+  };
 }
 
 export async function getOrderDetails(orderId: string) {

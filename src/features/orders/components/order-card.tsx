@@ -1,17 +1,17 @@
 "use client";
 
+import { OrderWithOrderItem } from "@/app/(consumer)/profile/order/page";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { formatRupiah } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { OrderWithItems } from "./order-list";
 import Link from "next/link";
 
 interface OrderCardProps {
-  order: OrderWithItems;
+  order: OrderWithOrderItem;
 }
 
 export function OrderCard({ order }: OrderCardProps) {
@@ -126,10 +126,7 @@ export function OrderCard({ order }: OrderCardProps) {
       </div>
 
       <div className="border-t-4 border-black p-4 sm:p-6 bg-white flex justify-end gap-4">
-        <Button
-          variant="neutral"
-          className="w-full sm:w-auto font-bold uppercase"
-        >
+        <Button className="w-full sm:w-auto font-bold uppercase">
           Track Order
         </Button>
         <Button

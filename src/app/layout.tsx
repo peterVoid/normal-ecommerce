@@ -1,9 +1,8 @@
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
-import "./globals.css";
-import { Navbar } from "@/components/layouts/navbar";
-import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
+import "./globals.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -12,8 +11,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Loh Wok",
-  description: "",
+  title: "Brutal Shop",
+  description: "Brutal Shop - The Ultimate Shopping Experience",
 };
 
 export default function RootLayout({

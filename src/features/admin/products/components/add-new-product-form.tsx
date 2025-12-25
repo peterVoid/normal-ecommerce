@@ -453,7 +453,7 @@ export function AddNewProductForm({
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full h-16 text-xl font-heading border-2 border-border shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px]"
+                  className="w-full h-16 text-xl font-heading border-2 border-border shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] "
                   disabled={form.formState.isSubmitting}
                 >
                   {isEditMode ? "COMMIT UPDATES" : "GENERATE PRODUCT"}

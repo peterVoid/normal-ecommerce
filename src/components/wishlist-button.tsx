@@ -35,7 +35,7 @@ export function WishlistButton({ productId, isWishlist }: WishlistButtonProps) {
       ) : isWishlist ? (
         <Heart className="h-6 w-6" fill="red" />
       ) : (
-        <Heart className="h-6 w-6" />
+        <Heart className="h-6 w-6" fill="black" />
       )}
     </button>
   );

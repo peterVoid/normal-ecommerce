@@ -41,8 +41,8 @@ export function AddressCard({ address }: AddressCardProps) {
   return (
     <Card
       className={cn(
-        "relative overflow-hidden border-2 transition-all duration-300 group",
-        "border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 p-0",
+        "relative overflow-hidden border-4 transition-all duration-300 group",
+        "border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 p-0 rounded-none",
         address.mainAddress ? "bg-emerald-50" : "bg-white"
       )}
     >
@@ -50,41 +50,42 @@ export function AddressCard({ address }: AddressCardProps) {
         {/* Header Bar */}
         <div
           className={cn(
-            "px-6 py-2 border-b-2 border-black flex items-center justify-between",
-            address.mainAddress ? "bg-emerald-200" : "bg-gray-100"
+            "px-6 py-3 border-b-4 border-black flex items-center justify-between",
+            address.mainAddress ? "bg-emerald-400" : "bg-gray-100"
           )}
         >
           <div className="flex items-center gap-3">
-            <span className="font-black uppercase tracking-tight text-lg">
+            <span className="font-black uppercase tracking-tight text-xl">
               {address.label}
             </span>
             {address.mainAddress && (
-              <Badge className="bg-black text-white hover:bg-black/90 border-0 rounded-none text-xs px-2 py-0.5 font-bold uppercase tracking-wider">
+              <Badge className="bg-black text-white hover:bg-black/90 border-0 rounded-none text-xs px-2 py-1 font-bold uppercase tracking-wider shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">
                 Main Address
               </Badge>
             )}
           </div>
-          {address.mainAddress && <CheckIcon className="w-5 h-5 text-black" />}
+          {address.mainAddress && (
+            <CheckIcon className="w-6 h-6 text-black stroke-[3px]" />
+          )}
         </div>
 
-        <div className="p-6 grid md:grid-cols-[1fr_200px] gap-6">
-          <div className="space-y-4">
-            <div className="space-y-1">
-              <div className="font-bold text-xl md:text-2xl uppercase tracking-tight">
+        <div className="p-6 grid md:grid-cols-[1fr_220px] gap-8">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="font-black text-2xl md:text-3xl uppercase tracking-tighter text-black">
                 {address.receiverName}
               </div>
-              <div className="text-gray-600 font-mono text-sm tracking-tight">
+              <div className="inline-block bg-black text-white px-3 py-1 font-mono text-sm tracking-widest uppercase">
                 {address.phoneNumber}
               </div>
             </div>
 
-            <div className="bg-white border-2 border-black p-3 shadow-sm max-w-xl">
-              <p className="text-gray-900 font-medium leading-relaxed">
-                <span className="font-medium line-clamp-6">
+            <div className="bg-white border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] max-w-xl">
+              <p className="text-black font-bold leading-tight">
+                <span className="text-lg block mb-2">
                   {address.completeAddress}
                 </span>{" "}
-                <br />
-                <span className="text-gray-500 text-sm uppercase font-bold mt-1 block">
+                <span className="text-gray-600 text-sm uppercase font-black mt-2 pt-2 border-t-2 border-black/10 block italic">
                   {address.subdistrict}, {address.city} {address.postalCode}
                 </span>
               </p>
@@ -92,10 +93,10 @@ export function AddressCard({ address }: AddressCardProps) {
 
             <div
               className={cn(
-                "flex items-center gap-2 font-bold text-sm border-2 border-black w-fit px-3 py-1 rounded-full",
+                "flex items-center gap-2 font-black text-xs border-2 border-black w-fit px-4 py-2 rounded-none uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
                 address.mainAddress
-                  ? "bg-emerald-100 text-emerald-800"
-                  : "bg-gray-100 text-gray-500"
+                  ? "bg-emerald-200 text-black"
+                  : "bg-white text-gray-500"
               )}
             >
               <MapPinIcon className="w-4 h-4" />
@@ -103,25 +104,24 @@ export function AddressCard({ address }: AddressCardProps) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 justify-center md:border-l-2 md:border-black md:pl-6 md:border-dashed">
+          <div className="flex flex-col gap-4 justify-center md:border-l-4 md:border-black md:pl-8 md:border-dashed">
             <AddressDialogButton
               buttonText={
                 <>
                   <PencilIcon className="w-4 h-4 mr-2" />
-                  Edit
+                  Edit Address
                 </>
               }
               dlgTitle="Edit Address"
-              dlgDescription="Edit your address to make it easier for you to order."
-              className="bg-white flex items-center justify-start"
+              dlgDescription="Update your address details."
+              className="w-full bg-white hover:bg-blue-400 text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-black uppercase tracking-tight py-6"
               children={<AddNewAddressForm address={address} />}
             />
 
             {!address.mainAddress && (
               <>
                 <Button
-                  variant="neutral"
-                  className="w-full justify-start border-2 border-black bg-white text-black hover:bg-emerald-200 font-bold shadow-sm"
+                  className="w-full justify-start border-2 border-black bg-emerald-200 text-black hover:bg-emerald-400 font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-tight py-6"
                   onClick={handleSetMainAddress}
                   disabled={isPending || isDeleting}
                 >
@@ -133,8 +133,7 @@ export function AddressCard({ address }: AddressCardProps) {
                   Set Main
                 </Button>
                 <Button
-                  variant="neutral"
-                  className="w-full justify-start border-2 border-black bg-white text-black hover:bg-red-200 hover:text-red-900 font-bold shadow-sm"
+                  className="w-full justify-start border-2 border-black bg-red-200 text-black hover:bg-red-400 font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-tight py-6"
                   onClick={handleDeleteAddress}
                   disabled={isDeleting}
                 >

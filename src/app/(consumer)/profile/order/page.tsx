@@ -17,7 +17,7 @@ export type OrderWithOrderItem = Prisma.OrderGetPayload<{
 }>;
 
 export default async function OrderPage() {
-  const orders: OrderWithOrderItem[] = await getUserOrders();
+  const { items: orders, nextCursor, hasMore } = await getUserOrders();
 
   return (
     <div className="space-y-8">
@@ -30,7 +30,11 @@ export default async function OrderPage() {
         </p>
       </div>
 
-      <OrderList orders={orders} />
+      <OrderList
+        initialOrders={orders}
+        initialCursor={nextCursor}
+        initialHasMore={hasMore}
+      />
     </div>
   );
 }

@@ -14,26 +14,26 @@ export function HeroSection() {
             <div className="relative">
               <div className="absolute -top-3 -left-3 bg-black w-full h-full transform rotate-2" />
               <div className="relative bg-yellow-300 border-4 border-black px-6 py-2 text-sm font-black uppercase shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-transform cursor-default">
-                New Collection 2025
+                Fresh Drop 2025
               </div>
             </div>
 
             <h1 className="text-7xl lg:text-9xl font-black uppercase leading-[0.85] tracking-tighter italic">
-              Bold <br />
-              Style. <br />
+              Break <br />
+              Rules. <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 to-blue-600">
-                No Limits.
+                Own It.
               </span>
             </h1>
 
             <p className="text-xl font-medium max-w-lg text-gray-800 border-l-4 border-black pl-6">
-              Express yourself with products that don&apos;t compromise. Maximum
-              impact, zero boring.
+              Forget the ordinary. Define yourself with high-impact pieces that
+              never compromise. Stay loud, stay brutal.
             </p>
 
             <div className="flex items-center gap-6">
               <Button className="h-16 px-10 text-xl font-black uppercase bg-cyan-400 text-black border-4 border-black hover:bg-cyan-500 hover:text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                Shop Now <ArrowRight className="ml-2 w-6 h-6" />
+                Grab Yours <ArrowRight className="ml-2 w-6 h-6" />
               </Button>
             </div>
           </div>

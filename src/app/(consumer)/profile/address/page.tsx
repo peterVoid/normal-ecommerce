@@ -21,12 +21,13 @@ export default async function Page() {
         <AddressDialogButton
           buttonText={
             <>
-              <PlusIcon className="w-4 h-4 mr-2" />
+              <PlusIcon className="w-5 h-5 mr-2" />
               Add New Address
             </>
           }
-          dlgTitle="Add New Address"
-          dlgDescription="Add your new address to make it easier for you to order."
+          dlgTitle=""
+          dlgDescription=""
+          className="bg-yellow-400 hover:bg-yellow-500 text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-black uppercase tracking-tight"
           children={<AddNewAddressForm />}
         />
       </div>

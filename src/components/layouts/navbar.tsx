@@ -8,7 +8,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
-  SearchIcon,
   ShoppingCartIcon,
   UserIcon,
 } from "lucide-react";
@@ -32,7 +31,6 @@ export function Navbar({ categories = [] }: NavbarProps) {
   return (
     <header className="h-20 border-b-4 border-black bg-white flex items-center fixed top-0 left-0 right-0 z-50 shadow-[0px_4px_0px_0px_rgba(0,0,0,0.1)]">
       <div className="flex items-center justify-between container mx-auto px-4 md:px-7 relative">
-        {/* LOGO */}
         <div className="flex items-center z-50">
           <Button
             className="border-2 border-black bg-main hover:bg-main/90 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
@@ -41,16 +39,14 @@ export function Navbar({ categories = [] }: NavbarProps) {
           >
             <Link
               href="/"
-              className="font-black text-md uppercase tracking-wider"
+              className="font-bold text-md uppercase tracking-wider"
             >
               BRUTAL SHOP
             </Link>
           </Button>
         </div>
 
-        {/* NAVIGATION LINKS */}
         <nav className="md:flex items-center gap-x-4 hidden h-full">
-          {/* ALL PRODUCT LINK */}
           <Link href="/products">
             <div
               className={cn(
@@ -66,6 +62,9 @@ export function Navbar({ categories = [] }: NavbarProps) {
           {NAVBAR_LINKS.map((nLink) => {
             const isCategory = nLink.label === NavbarLabel.Categories;
             const isActive = !isCategory && pathname === nLink.href;
+            const isCollections = nLink.label === NavbarLabel.Collections;
+
+            if (isCollections) return null;
 
             if (isCategory) {
               return (
@@ -101,7 +100,6 @@ export function Navbar({ categories = [] }: NavbarProps) {
                         transition={{ duration: 0.2 }}
                         className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] lg:w-[800px] pt-4"
                       >
-                        {/* Connecting Line/Triangle optional */}
                         <div className="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative z-50">
                           <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-t-4 border-l-4 border-black rotate-45" />
 
@@ -130,7 +128,6 @@ export function Navbar({ categories = [] }: NavbarProps) {
                                 </Link>
                               ))}
 
-                              {/* View All Button if overflow */}
                               {hasMoreCategories && (
                                 <Link href="/categories" className="group">
                                   <div className="bg-black border-2 border-black p-3 text-center transition-all group-hover:bg-neutral-800 group-hover:-translate-y-1 group-hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">

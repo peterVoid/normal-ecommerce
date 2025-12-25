@@ -67,6 +67,8 @@ export async function updateProduct(
       };
     }
 
+    console.log(data);
+
     const {
       categoryId,
       description,
