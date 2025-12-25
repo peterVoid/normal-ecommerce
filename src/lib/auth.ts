@@ -69,7 +69,7 @@ export const auth = betterAuth({
     },
   },
   advanced: {
-    cookiePrefix: "lahwok",
+    cookiePrefix: "brutalshop",
   },
   plugins: [
     emailOTP({

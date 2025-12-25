@@ -143,7 +143,7 @@ Before you begin, ensure you have the following installed:
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/peterVoid/loh-wok.git
+git clone https://github.com/peterVoid/normal-ecommerce.git
 cd loh-wok
 ```
 
@@ -269,6 +269,9 @@ bunx tsc --noEmit
 ---
 
 ## 📸 Screenshots
+
+- Admin Dashboard
+  ![Alt text](images/admin-dashboard.png)
 
 ## 🎨 Design Philosophy
 

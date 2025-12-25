@@ -29,7 +29,7 @@ export async function sendEmail({
   }
 
   const info = await transporter.sendMail({
-    from: "lah-wok@gmail.com",
+    from: "brutalshop@gmail.com",
     to: sendTo,
     subject,
     text,

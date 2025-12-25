@@ -87,7 +87,9 @@ export function AdminSidebar({
               <LayoutDashboard className="size-4 mr-3" />
             )}
           </div>
-          <span className="truncate font-bold text-3xl uppercase">lahwok</span>
+          <span className="truncate font-bold text-3xl uppercase">
+            Brutalshop Admin
+          </span>
         </div>
       </SidebarHeader>
       <SidebarContent>
