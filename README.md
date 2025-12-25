@@ -270,10 +270,6 @@ bunx tsc --noEmit
 
 ## 📸 Screenshots
 
-_Add your application screenshots here_
-
----
-
 ## 🎨 Design Philosophy
 
 This project embraces **Neo-Brutalism** - a design trend characterized by:
@@ -300,11 +296,11 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-**Your Name**
+**Haikal Prasetya**
 
-- Portfolio: [your-portfolio.com](https://your-portfolio.com)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- GitHub: [@yourusername](https://github.com/yourusername)
+- Portfolio: (https://portfolio-xi-six-ou69qsqvqu.vercel.app)
+- LinkedIn: (https://www.linkedin.com/in/haikal-alhakim-b02626287)
+- GitHub: (https://github.com/peterVoid)
 
 ---
 
