@@ -9,7 +9,7 @@
 
 ## 🎯 Project Overview
 
-**Loh Wok** is a modern, feature-rich e-commerce platform developed as a portfolio project to showcase full-stack development skills. The application demonstrates proficiency in modern web technologies, UI/UX design, authentication systems, payment integration, and cloud services.
+**Brutal Shop** is a modern, feature-rich e-commerce platform developed as a portfolio project to showcase full-stack development skills. The application demonstrates proficiency in modern web technologies, UI/UX design, authentication systems, payment integration, and cloud services.
 
 ### ✨ Key Highlights
 
@@ -319,5 +319,5 @@ This project is open source and available under the [MIT License](LICENSE).
 
 <div align="center">
   <p>Built with ❤️ using Next.js</p>
-  <p>© 2025 Loh Wok. All rights reserved.</p>
+  <p>© 2025 Brutal Shop. All rights reserved.</p>
 </div>
