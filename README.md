@@ -272,7 +272,23 @@ bunx tsc --noEmit
 
 ### Admin Dashboard
 
-![Admin Dashboard](public/showcases/admin-dashboard.png)
+![Admin Dashboard](public/showcases/admin/dashboard.png)
+
+### Admin - Products Management
+
+![Products Management](public/showcases/admin/products.png)
+
+### Admin - Categories Management
+
+![Categories Management](public/showcases/admin/categories.png)
+
+### Admin - Orders Management
+
+![Orders Management](public/showcases/admin/orders.png)
+
+### Admin - Users Management
+
+![Users Management](public/showcases/admin/users.png)
 
 ## 🎨 Design Philosophy
 
